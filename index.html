@@ -15,13 +15,141 @@
       type="image/x-icon"
       href="./images/super-wes.ico"
     />
-    <title>Boo</title>
+    <link
+      rel="stylesheet"
+      href="./css/css-reset.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./css/main.css"
+    />
+    <title>Computer Store</title>
+  </head>
+  <body>
+    <header></header>
+
+    <main>
+      <template data-view="template">
+        <slot name="current-view"> </slot>
+      </template>
+
+      <view-container
+        class="view-container"
+        data-view="container"
+        data-view-displayed="bank"
+      >
+        <div
+          class="bank"
+          data-view="bank"
+        >
+          <h1>Bank</h1>
+
+          <table>
+            <thead>
+              <tr>
+                <th id="loan">Loan</th>
+                <th id="balance">Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td
+                  headers="loan"
+                  data-bank="owed"
+                >
+                  10M
+                </td>
+                <td
+                  headers="balance"
+                  data-bank="balance"
+                  data-bank-balance="1"
+                >
+                  1M
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="bank_loan">
+            <button data-bank="apply-button">Apply for a loan</button>
+          </div>
+        </div>
+
+        <div
+          class="work"
+          data-view="work"
+        >
+          <h1>Work</h1>
+
+          <div class="work_job">
+            <h2 data-work="earnings">0</h2>
+            <button data-work="work-button">Work</button>
+          </div>
+
+          <div class="work_banking">
+            <button
+              class="work_banking-deposit"
+              data-bank="deposit"
+            >
+              Deposit
+            </button>
+            <button
+              class="work_banking-repay"
+              data-bank="repay"
+            >
+              Repay
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="laptops"
+          data-view="laptops"
+        >
+          laskdf893749287
+        </div>
+      </view-container>
+
+      <fieldset data-view-toggle="all">
+        <div>
+          <input
+            data-view-toggle="work"
+            placeholder="Work"
+            type="radio"
+            id="work"
+            name="view_toggle"
+          />
+          <label for="work">Work</label>
+        </div>
+
+        <div>
+          <input
+            data-view-toggle="bank"
+            placeholder="Bank"
+            type="radio"
+            name="view_toggle"
+            id="bank"
+            checked="true"
+          />
+          <label for="bank">Bank</label>
+        </div>
+
+        <div>
+          <input
+            data-view-toggle="laptops"
+            placeholder="Laptops"
+            type="radio"
+            id="laptops"
+            name="view_toggle"
+          />
+          <label for="laptops">Laptops</label>
+        </div>
+      </fieldset>
+    </main>
+
     <script
       src="./scripts/index.js"
       type="module"
     ></script>
-  </head>
-  <body>
-    Hello World
   </body>
 </html>

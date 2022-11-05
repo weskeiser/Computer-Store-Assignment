@@ -1,0 +1,102 @@
+body {
+  background-color: bisque;
+  height: 100%;
+  height: 100vh;
+}
+
+main {
+  background-color: white;
+  display: grid;
+  border: 1px solid black;
+  display: grid;
+  grid-template-rows: 1fr 5em;
+  height: 100%;
+}
+main fieldset {
+  background-color: aquamarine;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+main fieldset > div {
+  position: relative;
+  border: 1px solid red;
+}
+main fieldset > div input,
+main fieldset > div label {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+main fieldset > div input {
+  opacity: 0;
+}
+main .view-container h1 {
+  background-color: green;
+  font-size: 3em;
+  text-align: center;
+  text-transform: uppercase;
+}
+main .view-container .bank:not(.hidden) {
+  display: grid;
+  grid-template-rows: 4em 15em 1fr;
+  height: 100%;
+}
+main .view-container .bank:not(.hidden) table {
+  background-color: pink;
+}
+main .view-container .bank:not(.hidden) table thead {
+  font-size: 2em;
+}
+main .view-container .bank:not(.hidden) table tbody {
+  font-size: 4em;
+  text-align: center;
+}
+main .view-container .bank:not(.hidden) .bank_loan {
+  display: flex;
+}
+main .view-container .bank:not(.hidden) .bank_loan button {
+  width: 80%;
+  height: 60%;
+  margin: auto;
+  font-size: 2em;
+}
+main .view-container .work {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 4em 1.618fr 1fr;
+}
+main .view-container .work_job {
+  background-color: pink;
+  display: flex;
+}
+main .view-container .work_job > * {
+  margin: auto;
+  font-size: 2em;
+}
+main .view-container .work_job button {
+  width: 6em;
+  height: 3em;
+}
+main .view-container .work_banking {
+  display: flex;
+}
+main .view-container .work_banking button {
+  width: 45%;
+  height: 50%;
+  margin: auto;
+  font-size: 2em;
+}
+main .view-container .work_banking-deposit {
+  background-color: greenyellow;
+}
+main .view-container .work_banking-repay {
+  background-color: aquamarine;
+}
+
+.hidden {
+  display: none;
+}
+
+.pink {
+  background-color: pink;
+}/*# sourceMappingURL=main.css.map */
