@@ -1,82 +1,97 @@
-import { isEligible } from "./bank/checkEligibility.js";
 import { DataStore } from "./store/DataStore.js";
+import { isEligible } from "./bank/checkEligibility.js";
+import { viewHandlers } from "./viewHandler/viewHandlers.js";
 
-const storageKey = "storage";
-const dataStore = new DataStore(storageKey);
+const dataStore = new DataStore("storage");
 
 const App = {
   $: {
     views: {
+      viewNav: document.querySelector('[data-view="nav"]'),
       viewContainer: document.querySelector('[data-view="container"]'),
       allViews: document.querySelectorAll(
         '[data-view="bank"], [data-view="work"], [data-view="laptops"]'
       ),
-      viewToggles: document.querySelector('[data-view-toggle="all"]'),
     },
+
     banking: {
       balance: document.querySelector('[data-bank="balance"]'),
-      outstanding: document.querySelector('[data-balance="outstanding"]'),
-      applyButton: document.querySelector('[data-bank="apply-button"]'),
+      loanAmount: document.querySelector('[data-bank="loan-amount"]'),
+      loanApplyModal: document.querySelector('[data-bank="loan_apply-modal"]'),
+      loanApplyButton: document.querySelector(
+        '[data-bank="loan-apply-button"]'
+      ),
+      loanConfirmation: document.querySelector(
+        '[data-bank="loan-confirmation"]'
+      ),
+
+      loanStatus: document.querySelector('[data-bank="loan-status"]'),
     },
+
     work: {
       workButton: document.querySelector('[data-work="work-button"]'),
       earnings: document.querySelector('[data-work="earnings"]'),
     },
   },
 
-  defineViews() {
-    customElements.define(
-      "view-container",
-      class extends HTMLElement {
-        constructor() {
-          super();
-
-          const template = document.querySelector(
-            '[data-view="template"]'
-          ).content;
-
-          const shadowRoot = this.attachShadow({ mode: "open" });
-          shadowRoot.appendChild(template.cloneNode(true));
-
-          const bank = this.querySelector('[data-view="work"]');
-          bank.setAttribute("slot", "current-view");
-
-          App.$.views.viewToggles.addEventListener("change", (e) => {
-            const input = e.target;
-            const viewName = input.dataset.viewToggle;
-            const label = input.nextElementSibling;
-
-            const viewContainer = App.$.views.viewContainer;
-            const views = App.$.views.allViews;
-
-            viewContainer.dataset.viewDisplayed = viewName;
-
-            views.forEach((view) => {
-              view.dataset.view !== viewName
-                ? view.removeAttribute("slot")
-                : view.setAttribute("slot", "current-view");
-            });
-
-            label.className = "pink";
-          });
-        }
-      }
-    );
-  },
-
   init() {
-    App.defineViews();
+    // Storage
     dataStore.addEventListener("store", App.render);
 
-    App.$.banking.applyButton.addEventListener("click", () => {
-      const eligible = isEligible(dataStore.getData(), 62000);
+    // View handlers
+    viewHandlers(App.$.views);
 
-      dataStore.deposit(100);
-    });
-
+    // Work
     App.$.work.workButton.addEventListener("click", () => {
       dataStore.increaseEarnings(100);
     });
+
+    // Bank
+    const loanApplyButton = App.$.banking.loanApplyButton;
+
+    loanApplyButton.addEventListener("click", () => {
+      const modal = App.$.banking.loanApplyModal;
+      modal.showModal();
+
+      const applicationForm = modal.firstElementChild;
+
+      applicationForm.addEventListener("submit", (e) => {
+        if (e.submitter.name === "cancel") return;
+
+        const { requestAmount } = e.target;
+
+        // if (!loanTerms.checked) {
+        //   console.log("hi");
+        // }
+
+        const eligible = isEligible(
+          dataStore.getData(),
+          parseInt(requestAmount.value)
+        );
+
+        const { loanConfirmation, loanStatus } = App.$.banking;
+
+        if (!eligible) {
+          loanConfirmation.caption.textContent = "Ineligible";
+          loanConfirmation.rows.statusText.firstElementChild.textContent =
+            "You are not eligible for a You are not eligible for a loan";
+          loanConfirmation.rows.statusAmount.firstElementChild.textContent = "";
+        } else {
+          loanConfirmation.caption.textContent = "Title";
+          loanConfirmation.rows.statusText.firstElementChild.textContent =
+            "text";
+          loanConfirmation.rows.statusAmount.firstElementChild.textContent =
+            requestAmount.value;
+        }
+
+        // Template change
+        loanApplyButton.removeAttribute("slot");
+
+        loanStatus.setAttribute("slot", "loan-slot");
+      });
+    });
+
+    // Render
     App.render();
   },
 

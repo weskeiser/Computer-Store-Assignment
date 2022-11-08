@@ -26,14 +26,12 @@
     <title>Computer Store</title>
   </head>
   <body>
-    <header></header>
-
     <main>
       <template data-view="template">
         <slot name="current-view"> </slot>
       </template>
 
-      <view-container
+      <main-view
         class="view-container"
         data-view="container"
         data-view-displayed="bank"
@@ -47,31 +45,121 @@
           <table>
             <thead>
               <tr>
-                <th id="loan">Loan</th>
-                <th id="balance">Balance</th>
+                <th id="bankLoan">Loan</th>
+                <th id="bankBalance">Balance</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td
-                  headers="loan"
-                  data-bank="owed"
+                  headers="bankLoan"
+                  data-bank="loan-amount"
                 >
-                  10M
+                  -
                 </td>
                 <td
-                  headers="balance"
+                  headers="bankBalance"
                   data-bank="balance"
-                  data-bank-balance="1"
                 >
-                  1M
+                  -
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div class="bank_loan">
-            <button data-bank="apply-button">Apply for a loan</button>
+            <template data-bank="loan-template">
+              <slot name="loan-slot"></slot>
+            </template>
+
+            <loan-view>
+              <button
+                class="bank_loan_apply-btn"
+                data-bank="loan-apply-button"
+              >
+                Apply for a loan
+              </button>
+
+              <form data-bank="loan-status">
+                <table data-bank="loan-confirmation">
+                  <caption name="statusTitle">
+                    Eligible
+                  </caption>
+
+                  <thead>
+                    <tr name="statusText">
+                      <th>You are eligible for a loan</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr name="statusAmount">
+                      <td>$100</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div>
+                  <label for="loanTerms">Agree to terms</label>
+                  <input
+                    id="loanTerms"
+                    type="checkbox"
+                    name="loanTerms"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  name="decline"
+                >
+                  Decline
+                </button>
+
+                <button
+                  type="submit"
+                  data-bank="accept-loan"
+                  name="accept"
+                >
+                  Accept
+                </button>
+              </form>
+            </loan-view>
+
+            <dialog data-bank="loan_apply-modal">
+              <form
+                id="loanApplication"
+                method="dialog"
+              >
+                <h2>Loan Application</h2>
+
+                <div>
+                  <label for="requestAmount">Amount</label>
+                  <input
+                    name="requestAmount"
+                    id="requestAmount"
+                    type="number"
+                    min="1"
+                  />
+                </div>
+
+                <div class="loan_apply-confirmation">
+                  <button
+                    class="loan_apply-confirmation-cancel"
+                    type="submit"
+                    name="cancel"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    class="loan_apply-confirmation-accept"
+                    type="submit"
+                    name="accept"
+                  >
+                    Apply
+                  </button>
+                </div>
+              </form>
+            </dialog>
           </div>
         </div>
 
@@ -108,44 +196,47 @@
         >
           laskdf893749287
         </div>
-      </view-container>
-
-      <fieldset data-view-toggle="all">
-        <div>
-          <input
-            data-view-toggle="work"
-            placeholder="Work"
-            type="radio"
-            id="work"
-            name="view_toggle"
-          />
-          <label for="work">Work</label>
-        </div>
-
-        <div>
-          <input
-            data-view-toggle="bank"
-            placeholder="Bank"
-            type="radio"
-            name="view_toggle"
-            id="bank"
-            checked="true"
-          />
-          <label for="bank">Bank</label>
-        </div>
-
-        <div>
-          <input
-            data-view-toggle="laptops"
-            placeholder="Laptops"
-            type="radio"
-            id="laptops"
-            name="view_toggle"
-          />
-          <label for="laptops">Laptops</label>
-        </div>
-      </fieldset>
+      </main-view>
     </main>
+
+    <fieldset
+      data-view="nav"
+      role="navigation"
+    >
+      <div>
+        <input
+          type="radio"
+          placeholder="Work"
+          data-nav="work"
+          id="work"
+          name="view_toggle"
+        />
+        <label for="work">Work</label>
+      </div>
+
+      <div>
+        <input
+          type="radio"
+          placeholder="Bank"
+          data-nav="bank"
+          name="view_toggle"
+          id="bank"
+          checked="true"
+        />
+        <label for="bank">Bank</label>
+      </div>
+
+      <div>
+        <input
+          type="radio"
+          placeholder="Laptops"
+          data-nav="laptops"
+          id="laptops"
+          name="view_toggle"
+        />
+        <label for="laptops">Laptops</label>
+      </div>
+    </fieldset>
 
     <script
       src="./scripts/index.js"

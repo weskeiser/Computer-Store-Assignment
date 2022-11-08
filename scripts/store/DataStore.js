@@ -2,12 +2,13 @@ export const DataStore = class extends EventTarget {
   constructor(storageKey) {
     super();
     this.storageKey = storageKey;
-    this._readStorage();
+    this._fetchStorage();
 
     if (!window.localStorage.getItem(this.storageKey)) {
       const storage = {
         balance: 0,
         loan: 0,
+        loanOffer: 0,
         earnings: 0,
         laptops: {},
       };
@@ -32,7 +33,7 @@ export const DataStore = class extends EventTarget {
     this.dispatchEvent(new CustomEvent("store"));
   }
 
-  _readStorage() {
+  _fetchStorage() {
     this.storage = JSON.parse(window.localStorage.getItem(this.storageKey));
   }
 

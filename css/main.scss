@@ -3,46 +3,44 @@ html {
 
 body {
   background-color: bisque;
-  // margin-inline: 3em;
   height: 100%;
   height: 100vh;
+  display: grid;
+  grid-template-rows: auto 5em;
+}
+
+fieldset {
+  height: 5em;
+  background-color: aquamarine;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  & > div {
+    position: relative;
+    border: 1px solid red;
+
+    input,
+    label {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
+    input {
+      opacity: 0;
+    }
+
+    label {
+    }
+  }
 }
 
 main {
   background-color: white;
-  display: grid;
-  border: 1px solid black;
-  display: grid;
-  grid-template-rows: 1fr 5em;
-  height: 100%;
-
-  fieldset {
-    background-color: aquamarine;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-
-    & > div {
-      position: relative;
-      border: 1px solid red;
-
-      input,
-      label {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-      }
-
-      input {
-        opacity: 0;
-      }
-
-      label {
-      }
-    }
-  }
 
   .view-container {
     // height: 100%;
+
     h1 {
       background-color: green;
       font-size: 3em;
@@ -57,7 +55,7 @@ main {
       // grid-template-rows: 4em 1.618fr 1fr;
       height: 100%;
 
-      table {
+      & > table {
         background-color: pink;
 
         thead {
@@ -74,12 +72,56 @@ main {
       }
 
       .bank_loan {
-        display: flex;
-        button {
+        loan-view {
+          height: 100%;
+          display: flex;
+        }
+
+        &_apply-btn {
           width: 80%;
           height: 60%;
           margin: auto;
           font-size: 2em;
+        }
+
+        :modal {
+          height: 60%;
+          width: 80%;
+
+          form {
+            display: grid;
+            grid-template-rows: 3em 1fr 6em;
+            height: 100%;
+
+            h2 {
+              font-size: 2em;
+            }
+
+            label,
+            input {
+              font-size: 1.4em;
+              // margin: auto;
+              // height: 3.5em;
+            }
+
+            .loan_apply-confirmation {
+              display: flex;
+
+              button {
+                width: 45%;
+                height: 100%;
+                margin: auto;
+                color: #fff;
+              }
+
+              &-accept {
+                background-color: green;
+              }
+              &-cancel {
+                background-color: rgb(157, 41, 41);
+              }
+            }
+          }
         }
       }
     }

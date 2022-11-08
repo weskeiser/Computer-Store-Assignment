@@ -2,33 +2,31 @@ body {
   background-color: bisque;
   height: 100%;
   height: 100vh;
+  display: grid;
+  grid-template-rows: auto 5em;
 }
 
-main {
-  background-color: white;
-  display: grid;
-  border: 1px solid black;
-  display: grid;
-  grid-template-rows: 1fr 5em;
-  height: 100%;
-}
-main fieldset {
+fieldset {
+  height: 5em;
   background-color: aquamarine;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
-main fieldset > div {
+fieldset > div {
   position: relative;
   border: 1px solid red;
 }
-main fieldset > div input,
-main fieldset > div label {
+fieldset > div input,
+fieldset > div label {
   width: 100%;
   height: 100%;
   position: absolute;
 }
-main fieldset > div input {
+fieldset > div input {
   opacity: 0;
+}
+main {
+  background-color: white;
 }
 main .view-container h1 {
   background-color: green;
@@ -41,24 +39,56 @@ main .view-container .bank:not(.hidden) {
   grid-template-rows: 4em 15em 1fr;
   height: 100%;
 }
-main .view-container .bank:not(.hidden) table {
+main .view-container .bank:not(.hidden) > table {
   background-color: pink;
 }
-main .view-container .bank:not(.hidden) table thead {
+main .view-container .bank:not(.hidden) > table thead {
   font-size: 2em;
 }
-main .view-container .bank:not(.hidden) table tbody {
+main .view-container .bank:not(.hidden) > table tbody {
   font-size: 4em;
   text-align: center;
 }
-main .view-container .bank:not(.hidden) .bank_loan {
+main .view-container .bank:not(.hidden) .bank_loan loan-view {
+  height: 100%;
   display: flex;
 }
-main .view-container .bank:not(.hidden) .bank_loan button {
+main .view-container .bank:not(.hidden) .bank_loan_apply-btn {
   width: 80%;
   height: 60%;
   margin: auto;
   font-size: 2em;
+}
+main .view-container .bank:not(.hidden) .bank_loan :modal {
+  height: 60%;
+  width: 80%;
+}
+main .view-container .bank:not(.hidden) .bank_loan :modal form {
+  display: grid;
+  grid-template-rows: 3em 1fr 6em;
+  height: 100%;
+}
+main .view-container .bank:not(.hidden) .bank_loan :modal form h2 {
+  font-size: 2em;
+}
+main .view-container .bank:not(.hidden) .bank_loan :modal form label,
+main .view-container .bank:not(.hidden) .bank_loan :modal form input {
+  font-size: 1.4em;
+}
+main .view-container .bank:not(.hidden) .bank_loan :modal form .loan_apply-confirmation {
+  display: flex;
+}
+main .view-container .bank:not(.hidden) .bank_loan :modal form .loan_apply-confirmation button {
+  width: 45%;
+  height: 100%;
+  margin: auto;
+  color: #fff;
+}
+main .view-container .bank:not(.hidden) .bank_loan :modal form .loan_apply-confirmation-accept {
+  background-color: green;
+}
+main .view-container .bank:not(.hidden) .bank_loan :modal form .loan_apply-confirmation-cancel {
+  background-color: rgb(157, 41, 41);
 }
 main .view-container .work {
   height: 100%;
