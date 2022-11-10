@@ -26,6 +26,10 @@ export const DataStore = class extends EventTarget {
     this.getEarnings = () => {
       return parseInt(this.storage.earnings);
     };
+
+    this.getLoanOffer = () => {
+      return parseInt(this.storage.loanOffer);
+    };
   }
 
   _store() {
@@ -44,6 +48,11 @@ export const DataStore = class extends EventTarget {
 
   increaseEarnings(earnings) {
     this.storage.earnings = this.getEarnings() + earnings;
+    this._store();
+  }
+
+  updateLoanOffer(offer) {
+    this.storage.loanOffer = offer;
     this._store();
   }
 };

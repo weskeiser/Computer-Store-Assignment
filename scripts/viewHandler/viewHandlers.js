@@ -5,32 +5,44 @@ export const viewHandlers = (views) => {
       constructor() {
         super();
 
-        const template = document.querySelector(
-          '[data-view="template"]'
-        ).content;
+        // const mainView = document.querySelector(
+        //   '[data-view="container"]'
+        // ).content;
+
+        const initialView =
+          document.querySelector('[data-test="work"]').content;
+
         const shadowRoot = this.attachShadow({ mode: "open" });
-        shadowRoot.appendChild(template.cloneNode(true));
+        shadowRoot.appendChild(initialView.cloneNode(true));
 
-        const initialView = this.querySelector('[data-view="bank"]');
-        initialView.setAttribute("slot", "current-view");
+        // const workButton = initialView.querySelector(
+        //   '[data-work="work-button"]'
+        // );
 
-        views.viewNav.addEventListener("change", (e) => {
-          const input = e.target;
-          const viewName = input.dataset.nav;
-          const label = input.nextElementSibling;
+        // workButton.addEventListener("click", () => {
+        //   console.log(3);
+        //   dataStore.increaseEarnings(100);
+        // });
 
-          const { viewContainer, allViews } = views;
+        // console.log(initialView);
+        // const workView = document.querySelector('[data-view="work"]');
+        // console.log(workView);
 
-          viewContainer.dataset.viewDisplayed = viewName;
+        // initialView.setAttribute("slot", "current-view");
 
-          allViews.forEach((view) => {
-            view.dataset.view !== viewName
-              ? view.removeAttribute("slot")
-              : view.setAttribute("slot", "current-view");
-          });
+        // console.log(shadowRoot);
 
-          label.className = "pink";
-        });
+        // const { navButtons, allViews } = views;
+
+        // navButtons.forEach((btn) =>
+        //   btn.addEventListener("pointerup", () => {
+        //     allViews.forEach((view) => {
+        //       view.dataset.view !== btn.name
+        //         ? view.removeAttribute("slot")
+        //         : view.setAttribute("slot", "current-view");
+        //     });
+        //   })
+        // );
       }
     }
   );
@@ -42,14 +54,12 @@ export const viewHandlers = (views) => {
         super();
 
         const template = document.querySelector(
-          '[data-bank="loan-template"]'
+          '[data-loan="loan-template"]'
         ).content;
         const shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.appendChild(template.cloneNode(true));
 
-        const applyButton = this.querySelector(
-          '[data-bank="loan-apply-button"]'
-        );
+        const applyButton = this.querySelector('[data-loan="init-button"]');
         applyButton.setAttribute("slot", "loan-slot");
       }
     }

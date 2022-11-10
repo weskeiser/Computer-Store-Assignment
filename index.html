@@ -25,17 +25,10 @@
     />
     <title>Computer Store</title>
   </head>
+
   <body>
     <main>
-      <template data-view="template">
-        <slot name="current-view"> </slot>
-      </template>
-
-      <main-view
-        class="view-container"
-        data-view="container"
-        data-view-displayed="bank"
-      >
+      <template data-test="bank">
         <div
           class="bank"
           data-view="bank"
@@ -53,7 +46,7 @@
               <tr>
                 <td
                   headers="bankLoan"
-                  data-bank="loan-amount"
+                  data-loan="amount"
                 >
                   -
                 </td>
@@ -68,26 +61,30 @@
           </table>
 
           <div class="bank_loan">
-            <template data-bank="loan-template">
+            <template data-loan="loan-template">
+              <!-- <slot name="loan-slot"></slot> -->
               <slot name="loan-slot"></slot>
             </template>
 
             <loan-view>
               <button
                 class="bank_loan_apply-btn"
-                data-bank="loan-apply-button"
+                data-loan="init-button"
               >
                 Apply for a loan
               </button>
 
-              <form data-bank="loan-status">
-                <table data-bank="loan-confirmation">
+              <form data-loan="confirmation">
+                <table data-loan="confirmation-status">
                   <caption name="statusTitle">
                     Eligible
                   </caption>
 
                   <thead>
-                    <tr name="statusText">
+                    <tr
+                      name="statusText"
+                      id="statusText"
+                    >
                       <th>You are eligible for a loan</th>
                     </tr>
                   </thead>
@@ -99,7 +96,7 @@
                   </tbody>
                 </table>
 
-                <div>
+                <div data-loan="terms">
                   <label for="loanTerms">Agree to terms</label>
                   <input
                     id="loanTerms"
@@ -117,7 +114,7 @@
 
                 <button
                   type="submit"
-                  data-bank="accept-loan"
+                  data-loan="accept-loan"
                   name="accept"
                 >
                   Accept
@@ -125,7 +122,7 @@
               </form>
             </loan-view>
 
-            <dialog data-bank="loan_apply-modal">
+            <dialog data-loan="application-modal">
               <form
                 id="loanApplication"
                 method="dialog"
@@ -162,7 +159,12 @@
             </dialog>
           </div>
         </div>
+      </template>
 
+      <template
+        data-test="work"
+        data-view="template"
+      >
         <div
           class="work"
           data-view="work"
@@ -183,23 +185,42 @@
             </button>
             <button
               class="work_banking-repay"
-              data-bank="repay"
+              data-loan="repay"
             >
               Repay
             </button>
           </div>
         </div>
+      </template>
 
+      <template data-test="laptops">
         <div
           class="laptops"
           data-view="laptops"
         >
           laskdf893749287
         </div>
+      </template>
+
+      <main-view
+        class="view-container"
+        data-view="container"
+        data-view-displayed="bank"
+      >
+        <span slot="current-view"> Slot </span>
       </main-view>
     </main>
 
-    <fieldset
+    <nav
+      data-view="nav"
+      class="testNav"
+    >
+      <button name="work">Work</button>
+      <button name="bank">Bank</button>
+      <button name="laptops">Laptops</button>
+    </nav>
+
+    <!-- <fieldset
       data-view="nav"
       role="navigation"
     >
@@ -236,7 +257,7 @@
         />
         <label for="laptops">Laptops</label>
       </div>
-    </fieldset>
+    </fieldset> -->
 
     <script
       src="./scripts/index.js"
