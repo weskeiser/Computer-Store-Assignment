@@ -1,132 +1,51 @@
-import { DataStore } from "./store/DataStore.js";
-import { isEligible } from "./bank/checkEligibility.js";
+import { BankStorage } from "./store/BankStorage.js";
+import { WorkStorage } from "./store/WorkStorage.js";
 import { viewHandlers } from "./viewHandler/viewHandlers.js";
+import { Work } from "./work/work.js";
+import { Bank } from "./bank/bank.js";
 
-const dataStore = new DataStore("storage");
+const bankStorage = new BankStorage("storage");
+const workStorage = new WorkStorage("storage");
+
+const work = new Work(workStorage);
+const bank = new Bank(bankStorage);
+
+const delegate = (el, selector, event, handler) => {
+  el.addEventListener(event, (e) => {
+    if (e.target.matches(selector)) handler(e, el);
+  });
+};
 
 const App = {
   $: {
-    views: {
-      navButtons: document.querySelectorAll('[data-view="nav"] > button'),
-      viewContainer: document.querySelector('[data-view="container"]'),
-      allViews: document.querySelectorAll(
-        '[data-view="bank"], [data-view="work"], [data-view="laptops"]'
-      ),
-    },
+    allViews: document.querySelectorAll(
+      '[data-test="bank"], [data-test="work"], [data-test="laptops"]'
+    ),
+    navButtons: document.querySelectorAll('[data-view="nav"] > button'),
+  },
 
-    banking: {
-      balance: document.querySelector('[data-bank="balance"]'),
-      loanAmount: document.querySelector('[data-loan="amount"]'),
-      loanApplyModal: document.querySelector('[data-loan="application-modal"]'),
-      loanApplyButton: document.querySelector('[data-loan="init-button"]'),
-      loanConfirmation: document.querySelector('[data-loan="confirmation"]'),
-      loanConfirmationStatus: document.querySelector(
-        '[data-loan="confirmation-status"]'
-      ),
-      loanTerms: document.querySelector('[data-loan="terms"]'),
-      loanStatus: document.querySelector('[data-loan="confirmation"]'),
-    },
+  $$: {
+    mainView: document.querySelector("main-view").shadowRoot,
+  },
 
-    work: {
-      workButton: document.querySelector('[data-work="work-button"]'),
-      earnings: document.querySelector('[data-work="earnings"]'),
-    },
+  mainViewEvent(event, selector, handler) {
+    const mainView = document.querySelector("main-view").shadowRoot;
+
+    delegate(mainView, selector, event, (e) => {
+      const $el = e.target.closest(selector);
+      handler(mainView.querySelector("button"), $el, e);
+    });
   },
 
   init() {
-    // Storage
-    dataStore.addEventListener("store", App.render);
+    viewHandlers({ work }, { bank });
 
-    // View handlers
-    viewHandlers(App.$.views);
-
-    // Work
-    App.$.work.workButton.addEventListener("click", () => {
-      dataStore.increaseEarnings(100);
+    this.mainViewEvent("pointerdown", '[data-work="work-button"]', (e) => {
+      workStorage.increaseEarnings(100);
     });
 
-    // Bank
-    const { loanApplyButton, loanApplyModal, loanConfirmation, loanStatus } =
-      App.$.banking;
-
-    // Show modal
-    loanApplyButton.addEventListener("pointerdown", (e) => {
-      e.button !== 0 ? null : loanApplyModal.showModal();
-    });
-
-    // Handle application
-    const applicationForm = loanApplyModal.firstElementChild;
-
-    applicationForm.addEventListener("submit", (e) => {
-      if (e.submitter.name === "cancel") return;
-
-      const {
-        loanConfirmationStatus: {
-          caption,
-          tHead,
-          rows: { statusAmount },
-        },
-        loanTerms,
-      } = App.$.banking;
-
-      const { requestAmount } = e.target;
-
-      const eligible = isEligible(
-        dataStore.getData(),
-        parseInt(requestAmount.value)
-      );
-
-      if (!eligible) {
-        console.log(App.$.banking.loanConfirmationStatus);
-        caption.textContent = "Ineligible";
-        tHead.textContent = "You are not eligible for a loan";
-        statusAmount.textContent = "";
-        loanTerms.classList.add("hidden");
-      } else {
-        caption.textContent = "Eligible";
-        tHead.textContent = "text";
-        statusAmount.textContent = requestAmount.value;
-        loanTerms.classList.remove("hidden");
-
-        dataStore.updateLoanOffer(requestAmount.value);
-        // update again when spending money
-      }
-
-      // Template change
-      loanApplyButton.removeAttribute("slot");
-      loanStatus.setAttribute("slot", "loan-slot");
-    });
-
-    // Handle loan confirmation
-    loanConfirmation.addEventListener("submit", (e) => {
-      e.preventDefault();
-      if (e.submitter.name === "decline") {
-        loanStatus.removeAttribute("slot");
-        loanApplyButton.setAttribute("slot", "loan-slot");
-        return;
-      }
-
-      const loanOffer = dataStore.getLoanOffer();
-      const eligible = isEligible(dataStore.getData(), parseInt(loanOffer));
-    });
-
-    // Render
-    App.render();
-  },
-
-  render() {
-    console.log("RENDER-BEGIN");
-
-    const balance = dataStore.getBalance();
-    const balanceEl = App.$.banking.balance;
-    console.log(balanceEl);
-    balanceEl.textContent = balance;
-
-    const earnings = dataStore.getEarnings();
-    const earningsEl = App.$.work.earnings;
-    earningsEl.textContent = earnings;
-
-    console.log("RENDER-END");
+    bank.initialRender();
+    // work.initialRender();
   },
 };
 

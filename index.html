@@ -17,10 +17,6 @@
     />
     <link
       rel="stylesheet"
-      href="./css/css-reset.css"
-    />
-    <link
-      rel="stylesheet"
       href="./css/main.css"
     />
     <title>Computer Store</title>
@@ -28,8 +24,8 @@
 
   <body>
     <main>
-      <template data-test="bank">
-        <div
+      <template data-template="bank">
+        <section
           class="bank"
           data-view="bank"
         >
@@ -62,64 +58,65 @@
 
           <div class="bank_loan">
             <template data-loan="loan-template">
-              <!-- <slot name="loan-slot"></slot> -->
               <slot name="loan-slot"></slot>
             </template>
 
             <loan-view>
-              <button
-                class="bank_loan_apply-btn"
-                data-loan="init-button"
-              >
-                Apply for a loan
-              </button>
-
-              <form data-loan="confirmation">
-                <table data-loan="confirmation-status">
-                  <caption name="statusTitle">
-                    Eligible
-                  </caption>
-
-                  <thead>
-                    <tr
-                      name="statusText"
-                      id="statusText"
-                    >
-                      <th>You are eligible for a loan</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    <tr name="statusAmount">
-                      <td>$100</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div data-loan="terms">
-                  <label for="loanTerms">Agree to terms</label>
-                  <input
-                    id="loanTerms"
-                    type="checkbox"
-                    name="loanTerms"
-                  />
-                </div>
-
+              <div>
                 <button
-                  type="submit"
-                  name="decline"
+                  class="bank_loan_apply-btn"
+                  data-loan="init-button"
                 >
-                  Decline
+                  Apply for a loan
                 </button>
 
-                <button
-                  type="submit"
-                  data-loan="accept-loan"
-                  name="accept"
-                >
-                  Accept
-                </button>
-              </form>
+                <form data-loan="confirmation">
+                  <table data-loan="confirmation-status">
+                    <caption name="statusTitle">
+                      Eligible
+                    </caption>
+
+                    <thead>
+                      <tr
+                        name="statusText"
+                        id="statusText"
+                      >
+                        <th>You are eligible for a loan</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr name="statusAmount">
+                        <td>$100</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div data-loan="terms">
+                    <label for="loanTerms">Agree to terms</label>
+                    <input
+                      id="loanTerms"
+                      type="checkbox"
+                      name="loanTerms"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    name="decline"
+                  >
+                    Decline
+                  </button>
+
+                  <button
+                    type="submit"
+                    data-loan="accept-loan"
+                    name="accept"
+                  >
+                    Accept
+                  </button>
+                </form>
+              </div>
             </loan-view>
 
             <dialog data-loan="application-modal">
@@ -158,17 +155,11 @@
               </form>
             </dialog>
           </div>
-        </div>
+        </section>
       </template>
 
-      <template
-        data-test="work"
-        data-view="template"
-      >
-        <div
-          class="work"
-          data-view="work"
-        >
+      <template data-template="work">
+        <section class="work">
           <h1>Work</h1>
 
           <div class="work_job">
@@ -190,30 +181,20 @@
               Repay
             </button>
           </div>
-        </div>
+        </section>
       </template>
 
-      <template data-test="laptops">
-        <div
-          class="laptops"
-          data-view="laptops"
-        >
-          laskdf893749287
-        </div>
+      <template data-template="laptops">
+        <section class="laptops">laskdf893749287</section>
       </template>
 
-      <main-view
-        class="view-container"
-        data-view="container"
-        data-view-displayed="bank"
-      >
-        <span slot="current-view"> Slot </span>
-      </main-view>
+      <!--  -->
+      <main-view class="view-container"> </main-view>
     </main>
 
     <nav
       data-view="nav"
-      class="testNav"
+      class="main_nav"
     >
       <button name="work">Work</button>
       <button name="bank">Bank</button>

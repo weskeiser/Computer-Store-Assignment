@@ -1,4 +1,4 @@
-export const DataStore = class extends EventTarget {
+export const BankStorage = class extends EventTarget {
   constructor(storageKey) {
     super();
     this.storageKey = storageKey;
@@ -23,10 +23,6 @@ export const DataStore = class extends EventTarget {
       return parseInt(this.storage.balance);
     };
 
-    this.getEarnings = () => {
-      return parseInt(this.storage.earnings);
-    };
-
     this.getLoanOffer = () => {
       return parseInt(this.storage.loanOffer);
     };
@@ -43,11 +39,6 @@ export const DataStore = class extends EventTarget {
 
   deposit(depositAmount) {
     this.storage.balance = this.getBalance() + depositAmount;
-    this._store();
-  }
-
-  increaseEarnings(earnings) {
-    this.storage.earnings = this.getEarnings() + earnings;
     this._store();
   }
 

@@ -1,67 +1,68 @@
-export const viewHandlers = (views) => {
+const $ = {
+  navButtons: document.querySelectorAll('[data-view="nav"] > button'),
+  initialView: document.querySelector('[data-template="bank"]').content,
+  allViews: document.querySelectorAll(
+    '[data-template="bank"], [data-template="work"], [data-template="laptops"]'
+  ),
+};
+
+export const viewHandlers = (...viewClasses) => {
   customElements.define(
     "main-view",
     class extends HTMLElement {
       constructor() {
         super();
 
-        // const mainView = document.querySelector(
-        //   '[data-view="container"]'
-        // ).content;
-
-        const initialView =
-          document.querySelector('[data-test="work"]').content;
+        const mainSheet = document.createElement("link");
+        mainSheet.setAttribute("rel", "stylesheet");
+        mainSheet.setAttribute("href", "./css/main.css");
 
         const shadowRoot = this.attachShadow({ mode: "open" });
-        shadowRoot.appendChild(initialView.cloneNode(true));
+        shadowRoot.appendChild(mainSheet);
+        shadowRoot.appendChild($.initialView.cloneNode(true));
 
-        // const workButton = initialView.querySelector(
-        //   '[data-work="work-button"]'
-        // );
+        //--------------
+        //sha
+        $.navButtons.forEach((btn) =>
+          btn.addEventListener("pointerup", () => {
+            $.allViews.forEach((view) => {
+              if (view.dataset.template === btn.name) {
+                shadowRoot.replaceChildren(mainSheet);
+                shadowRoot.appendChild(view.content.cloneNode(true));
+              }
+            });
 
-        // workButton.addEventListener("click", () => {
-        //   console.log(3);
-        //   dataStore.increaseEarnings(100);
-        // });
+            const viewClassObj = viewClasses.find((viewClass) => {
+              const viewName = Object.keys(viewClass)[0];
+              return viewName === btn.name;
+            });
 
-        // console.log(initialView);
-        // const workView = document.querySelector('[data-view="work"]');
-        // console.log(workView);
+            const viewClass = Object.values(viewClassObj)[0];
 
-        // initialView.setAttribute("slot", "current-view");
-
-        // console.log(shadowRoot);
-
-        // const { navButtons, allViews } = views;
-
-        // navButtons.forEach((btn) =>
-        //   btn.addEventListener("pointerup", () => {
-        //     allViews.forEach((view) => {
-        //       view.dataset.view !== btn.name
-        //         ? view.removeAttribute("slot")
-        //         : view.setAttribute("slot", "current-view");
-        //     });
-        //   })
-        // );
+            viewClass.previouslyRendered
+              ? viewClass.render()
+              : viewClass.initialRender();
+          })
+        );
       }
     }
   );
 
-  customElements.define(
-    "loan-view",
-    class extends HTMLElement {
-      constructor() {
-        super();
+  // customElements.define(
+  //   "loan-view",
+  //   class extends HTMLElement {
+  //     constructor() {
+  //       super();
 
-        const template = document.querySelector(
-          '[data-loan="loan-template"]'
-        ).content;
-        const shadowRoot = this.attachShadow({ mode: "open" });
-        shadowRoot.appendChild(template.cloneNode(true));
+  //       const template = document.querySelector(
+  //         '[data-loan="loan-template"]'
+  //       ).content;
+  //       const shadowRoot = this.attachShadow({ mode: "open" });
+  //       shadowRoot.appendChild(template.cloneNode(true));
 
-        const applyButton = this.querySelector('[data-loan="init-button"]');
-        applyButton.setAttribute("slot", "loan-slot");
-      }
-    }
-  );
+  //       const applyButton = this.querySelector('[data-loan="init-button"]');
+  //       applyButton.setAttribute("slot", "loan-slot");
+  //     }
+  //   }
+  // );
 };
