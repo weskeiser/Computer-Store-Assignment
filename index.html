@@ -57,103 +57,107 @@
           </table>
 
           <div class="bank_loan">
-            <template data-loan="loan-template">
-              <slot name="loan-slot"></slot>
-            </template>
-
             <loan-view>
-              <div>
-                <button
-                  class="bank_loan_apply-btn"
-                  data-loan="init-button"
-                >
-                  Apply for a loan
-                </button>
-
-                <form data-loan="confirmation">
-                  <table data-loan="confirmation-status">
-                    <caption name="statusTitle">
-                      Eligible
-                    </caption>
-
-                    <thead>
-                      <tr
-                        name="statusText"
-                        id="statusText"
-                      >
-                        <th>You are eligible for a loan</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      <tr name="statusAmount">
-                        <td>$100</td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                  <div data-loan="terms">
-                    <label for="loanTerms">Agree to terms</label>
-                    <input
-                      id="loanTerms"
-                      type="checkbox"
-                      name="loanTerms"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    name="decline"
-                  >
-                    Decline
-                  </button>
-
-                  <button
-                    type="submit"
-                    data-loan="accept-loan"
-                    name="accept"
-                  >
-                    Accept
-                  </button>
-                </form>
-              </div>
+              <span data-loan="slot"> asl;dkjfasl;dkj </span>
             </loan-view>
 
-            <dialog data-loan="application-modal">
-              <form
-                id="loanApplication"
-                method="dialog"
-              >
-                <h2>Loan Application</h2>
+            <template data-loan="apply-template">
+              <div data-loan="apply-view">
+                <slot name="loan-slot">
+                  <button
+                    class="bank_loan_apply-btn"
+                    data-loan="apply-btn"
+                  >
+                    Apply for a loan
+                  </button>
 
-                <div>
-                  <label for="requestAmount">Amount</label>
+                  <dialog data-loan="application-modal">
+                    <form
+                      id="loanApplication"
+                      method="dialog"
+                    >
+                      <h2>Loan Application</h2>
+
+                      <div>
+                        <label for="requestAmount">Amount</label>
+                        <input
+                          name="requestAmount"
+                          id="requestAmount"
+                          type="number"
+                          min="1"
+                        />
+                      </div>
+
+                      <div class="loan_apply-confirmation">
+                        <button
+                          class="loan_apply-confirmation-cancel"
+                          type="submit"
+                          name="cancel"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          class="loan_apply-confirmation-accept"
+                          type="submit"
+                          name="accept"
+                        >
+                          Apply
+                        </button>
+                      </div>
+                    </form>
+                  </dialog>
+                </slot>
+              </div>
+            </template>
+
+            <template>
+              <form data-loan="confirmation">
+                <table data-loan="confirmation-status">
+                  <caption name="statusTitle">
+                    Eligible
+                  </caption>
+
+                  <thead>
+                    <tr
+                      name="statusText"
+                      id="statusText"
+                    >
+                      <th>You are eligible for a loan</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr name="statusAmount">
+                      <td>$100</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div data-loan="terms">
+                  <label for="loanTerms">Agree to terms</label>
                   <input
-                    name="requestAmount"
-                    id="requestAmount"
-                    type="number"
-                    min="1"
+                    id="loanTerms"
+                    type="checkbox"
+                    name="loanTerms"
                   />
                 </div>
 
-                <div class="loan_apply-confirmation">
-                  <button
-                    class="loan_apply-confirmation-cancel"
-                    type="submit"
-                    name="cancel"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    class="loan_apply-confirmation-accept"
-                    type="submit"
-                    name="accept"
-                  >
-                    Apply
-                  </button>
-                </div>
+                <button
+                  type="submit"
+                  name="decline"
+                >
+                  Decline
+                </button>
+
+                <button
+                  type="submit"
+                  data-loan="accept-loan"
+                  name="accept"
+                >
+                  Accept
+                </button>
               </form>
-            </dialog>
+            </template>
           </div>
         </section>
       </template>

@@ -86,59 +86,59 @@ main {
     }
   }
 
-  .bank_loan {
-    loan-view {
-      height: 100%;
-      display: flex;
-    }
+  // .bank_loan {
+  //   loan-view {
+  //     height: 100%;
+  //     display: flex;
+  //   }
 
-    &_apply-btn {
-      width: 80%;
-      height: 60%;
-      margin: auto;
-      font-size: 2em;
-    }
+  //   &_apply-btn {
+  //     width: 80%;
+  //     height: 60%;
+  //     margin: auto;
+  //     font-size: 2em;
+  //   }
 
-    :modal {
-      height: 60%;
-      width: 80%;
+  //   :modal {
+  //     height: 60%;
+  //     width: 80%;
 
-      form {
-        display: grid;
-        grid-template-rows: 3em 1fr 6em;
-        height: 100%;
+  //     form {
+  //       display: grid;
+  //       grid-template-rows: 3em 1fr 6em;
+  //       height: 100%;
 
-        h2 {
-          font-size: 2em;
-        }
+  //       h2 {
+  //         font-size: 2em;
+  //       }
 
-        label,
-        input {
-          font-size: 1.4em;
-          // margin: auto;
-          // height: 3.5em;
-        }
+  //       label,
+  //       input {
+  //         font-size: 1.4em;
+  //         // margin: auto;
+  //         // height: 3.5em;
+  //       }
 
-        .loan_apply-confirmation {
-          display: flex;
+  //       .loan_apply-confirmation {
+  //         display: flex;
 
-          button {
-            width: 45%;
-            height: 100%;
-            margin: auto;
-            color: #fff;
-          }
+  //         button {
+  //           width: 45%;
+  //           height: 100%;
+  //           margin: auto;
+  //           color: #fff;
+  //         }
 
-          &-accept {
-            background-color: green;
-          }
-          &-cancel {
-            background-color: rgb(157, 41, 41);
-          }
-        }
-      }
-    }
-  }
+  //         &-accept {
+  //           background-color: green;
+  //         }
+  //         &-cancel {
+  //           background-color: rgb(157, 41, 41);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }
 
 .main_nav {

@@ -67,47 +67,6 @@ main {
   font-size: 4em;
   text-align: center;
 }
-:host(main-view) > section .bank_loan loan-view {
-  height: 100%;
-  display: flex;
-}
-:host(main-view) > section .bank_loan_apply-btn {
-  width: 80%;
-  height: 60%;
-  margin: auto;
-  font-size: 2em;
-}
-:host(main-view) > section .bank_loan :modal {
-  height: 60%;
-  width: 80%;
-}
-:host(main-view) > section .bank_loan :modal form {
-  display: grid;
-  grid-template-rows: 3em 1fr 6em;
-  height: 100%;
-}
-:host(main-view) > section .bank_loan :modal form h2 {
-  font-size: 2em;
-}
-:host(main-view) > section .bank_loan :modal form label,
-:host(main-view) > section .bank_loan :modal form input {
-  font-size: 1.4em;
-}
-:host(main-view) > section .bank_loan :modal form .loan_apply-confirmation {
-  display: flex;
-}
-:host(main-view) > section .bank_loan :modal form .loan_apply-confirmation button {
-  width: 45%;
-  height: 100%;
-  margin: auto;
-  color: #fff;
-}
-:host(main-view) > section .bank_loan :modal form .loan_apply-confirmation-accept {
-  background-color: green;
-}
-:host(main-view) > section .bank_loan :modal form .loan_apply-confirmation-cancel {
-  background-color: rgb(157, 41, 41);
-}
 
 .main_nav {
   height: 5em;

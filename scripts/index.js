@@ -4,10 +4,10 @@ import { viewHandlers } from "./viewHandler/viewHandlers.js";
 import { Work } from "./work/work.js";
 import { Bank } from "./bank/bank.js";
 
-const bankStorage = new BankStorage("storage");
 const workStorage = new WorkStorage("storage");
-
 const work = new Work(workStorage);
+
+const bankStorage = new BankStorage("storage");
 const bank = new Bank(bankStorage);
 
 const delegate = (el, selector, event, handler) => {
@@ -24,28 +24,21 @@ const App = {
     navButtons: document.querySelectorAll('[data-view="nav"] > button'),
   },
 
-  $$: {
-    mainView: document.querySelector("main-view").shadowRoot,
+  init() {
+    viewHandlers({ work }, { bank });
+
+    this.newShadowEvent("pointerdown", '[data-work="work-button"]', () => {
+      workStorage.increaseEarnings(100);
+    });
   },
 
-  mainViewEvent(event, selector, handler) {
+  newShadowEvent(event, selector, handler) {
     const mainView = document.querySelector("main-view").shadowRoot;
 
     delegate(mainView, selector, event, (e) => {
       const $el = e.target.closest(selector);
-      handler(mainView.querySelector("button"), $el, e);
+      handler($el, e);
     });
-  },
-
-  init() {
-    viewHandlers({ work }, { bank });
-
-    this.mainViewEvent("pointerdown", '[data-work="work-button"]', (e) => {
-      workStorage.increaseEarnings(100);
-    });
-
-    bank.initialRender();
-    // work.initialRender();
   },
 };
 
