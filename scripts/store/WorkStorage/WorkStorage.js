@@ -1,11 +1,11 @@
-import { MainStorage } from "./MainStorage.js";
+import { MainStorage } from "../MainStorage.js";
 
 export class WorkStorage extends MainStorage {
   constructor(storageKey, identifier) {
     super(storageKey, identifier);
   }
 
-  getEarnings() {
+  get earnings() {
     return parseInt(this.storage.earnings);
   }
 
@@ -19,7 +19,7 @@ export class WorkStorage extends MainStorage {
   }
 
   increaseEarnings(earnings) {
-    this.storage.earnings = this.getEarnings() + earnings;
+    this.storage.earnings = this.earnings + earnings;
     this._store();
   }
 }

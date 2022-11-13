@@ -1,9 +1,9 @@
-export const MainStorage = class extends EventTarget {
+export class MainStorage extends EventTarget {
   constructor(storageKey, identifier) {
     super();
+    this.identifier = identifier;
     this.storageKey = storageKey;
     this._fetchStorage();
-    this.identifier = identifier;
 
     if (!window.localStorage.getItem(this.storageKey)) {
       const storage = {
@@ -16,9 +16,18 @@ export const MainStorage = class extends EventTarget {
       window.localStorage.setItem(this.storageKey, JSON.stringify(storage));
     }
 
-    this.getData = () => {
-      return this.storage;
-    };
+    window.addEventListener(
+      "storage",
+      () => {
+        this._fetchStorage();
+        this._store();
+      },
+      false
+    );
+  }
+
+  get allData() {
+    return this.storage;
   }
 
   _store() {
@@ -29,4 +38,4 @@ export const MainStorage = class extends EventTarget {
   _fetchStorage() {
     this.storage = JSON.parse(window.localStorage.getItem(this.storageKey));
   }
-};
+}

@@ -26,7 +26,7 @@ export class Bank extends MainViews {
     //   }
 
     //   const loanOffer = dataStore.getLoanOffer();
-    //   const eligible = isEligible(dataStore.getData(), parseInt(loanOffer));
+    //   const eligible = isEligible(dataStore.allData, parseInt(loanOffer));
     // });
 
     console.log(22, "- Render-End-BANK -", 22);

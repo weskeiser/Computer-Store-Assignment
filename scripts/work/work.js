@@ -5,7 +5,7 @@ export class Work extends MainViews {
   render() {
     console.log(1, "- Render-Begin-WORK -", 1);
 
-    const earnings = this.storage.getEarnings();
+    const earnings = this.storage.earnings;
     const earningsEl = qs(this.mainView, '[data-work="earnings"]');
 
     replaceHTML(earningsEl, earnings);

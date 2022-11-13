@@ -1,16 +1,16 @@
-import { BankStorage } from "./store/BankStorage.js";
-import { WorkStorage } from "./store/WorkStorage.js";
+import { BankStorage } from "./store/BankStorage/BankStorage.js";
+import { WorkStorage } from "./store/WorkStorage/WorkStorage.js";
 import { Work } from "./work/work.js";
 import { Bank } from "./bank/bank.js";
 import { viewHandlers } from "./viewHandler/viewHandlers.js";
 import { delegate } from "./utils.js";
 import { Laptops } from "./laptops/laptops.js";
-import { LaptopsStorage } from "./laptops/LaptopsStorage.js";
+import { LaptopsStorage } from "./store/LaptopsStorage/LaptopsStorage.js";
 
 const workStorage = new WorkStorage("storage", "WorkStorage");
 const work = new Work(workStorage);
 
-const bankStorage = new BankStorage("storage");
+const bankStorage = new BankStorage("storage", "BankStorage");
 const bank = new Bank(bankStorage);
 
 const laptopsStorage = new LaptopsStorage("storage");

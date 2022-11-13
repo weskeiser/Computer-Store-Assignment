@@ -107,7 +107,7 @@ export const viewHandlers = (...viewClasses) => {
           const { requestAmount } = e.target;
 
           const eligible = isEligible(
-            dataStore.getData(),
+            dataStore.allData,
             parseInt(requestAmount.value)
           );
 
@@ -162,7 +162,7 @@ export const viewHandlers = (...viewClasses) => {
       //   }
 
       //   const loanOffer = dataStore.getLoanOffer();
-      //   const eligible = isEligible(dataStore.getData(), parseInt(loanOffer));
+      //   const eligible = isEligible(dataStore.allData, parseInt(loanOffer));
 
       ///
       //
