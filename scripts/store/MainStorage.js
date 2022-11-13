@@ -1,8 +1,8 @@
 export class MainStorage extends EventTarget {
-  constructor(storageKey, identifier) {
+  constructor(identifier) {
     super();
     this.identifier = identifier;
-    this.storageKey = storageKey;
+    this.storageKey = "storage";
     this._fetchStorage();
 
     if (!window.localStorage.getItem(this.storageKey)) {

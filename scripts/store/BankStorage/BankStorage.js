@@ -1,24 +1,24 @@
 import { MainStorage } from "../MainStorage.js";
 
 export class BankStorage extends MainStorage {
-  constructor(storageKey, identifier) {
-    super(storageKey, identifier);
+  constructor(identifier) {
+    super(identifier);
+  }
 
-    this.getBalance = () => {
-      return parseInt(this.storage.balance);
-    };
+  get balance() {
+    return parseInt(this.storage.balance);
+  }
 
-    this.getLoan = () => {
-      return parseInt(this.storage.loan);
-    };
+  get loan() {
+    return parseInt(this.storage.loan);
+  }
 
-    this.getLoanOffer = () => {
-      return parseInt(this.storage.loanOffer);
-    };
+  get loanOffer() {
+    return parseInt(this.storage.loanOffer);
   }
 
   deposit(depositAmount) {
-    this.storage.balance = this.getBalance() + depositAmount;
+    this.storage.balance = this.balance + depositAmount;
     this._store();
   }
 

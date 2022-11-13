@@ -18,3 +18,10 @@ export const replaceHTML = (el, html) => {
   el.replaceChildren();
   insertHTML(el, html);
 };
+
+export const newShadowEvent = (target, event, selector, handler) => {
+  delegate(target, selector, event, (e) => {
+    const $el = e.target.closest(selector);
+    handler(e, $el);
+  });
+};
