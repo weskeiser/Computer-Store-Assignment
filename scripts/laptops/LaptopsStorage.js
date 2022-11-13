@@ -1,9 +1,8 @@
-export const BankStorage = class extends EventTarget {
+export const LaptopsStorage = class extends EventTarget {
   constructor(storageKey) {
     super();
     this.storageKey = storageKey;
     this._fetchStorage();
-    this.identifier = "BankStorage";
 
     if (!window.localStorage.getItem(this.storageKey)) {
       const storage = {
@@ -20,35 +19,17 @@ export const BankStorage = class extends EventTarget {
       return this.storage;
     };
 
-    this.getBalance = () => {
-      return parseInt(this.storage.balance);
-    };
-
-    this.getLoan = () => {
-      return parseInt(this.storage.loan);
-    };
-
-    this.getLoanOffer = () => {
-      return parseInt(this.storage.loanOffer);
+    this.getEarnings = () => {
+      return parseInt(this.storage.earnings);
     };
   }
 
   _store() {
     window.localStorage.setItem(this.storageKey, JSON.stringify(this.storage));
-    this.dispatchEvent(new CustomEvent(this.identifier));
+    this.dispatchEvent(new CustomEvent("storeLaptops"));
   }
 
   _fetchStorage() {
     this.storage = JSON.parse(window.localStorage.getItem(this.storageKey));
-  }
-
-  deposit(depositAmount) {
-    this.storage.balance = this.getBalance() + depositAmount;
-    this._store();
-  }
-
-  updateLoanOffer(offer) {
-    this.storage.loanOffer = offer;
-    this._store();
   }
 };

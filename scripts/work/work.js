@@ -1,27 +1,15 @@
-export class Work {
-  constructor(workStorage) {
-    this.workStorage = workStorage;
-    this.previouslyRendered = false;
-  }
+import { MainViews } from "../MainViews/MainViews.js";
+import { qs, replaceHTML } from "../utils.js";
 
-  initialRender() {
-    this.previouslyRendered = true;
-
-    this.mainView = document.querySelector("main-view").shadowRoot;
-
-    this.workStorage.addEventListener("storeWork", (e) => this.render());
-
-    this.render();
-  }
-
+export class Work extends MainViews {
   render() {
-    console.log("Render-Begin-WORK");
+    console.log(1, "- Render-Begin-WORK -", 1);
 
-    const earnings = this.workStorage.getEarnings();
-    const earningsEl = this.mainView.querySelector('[data-work="earnings"]');
+    const earnings = this.storage.getEarnings();
+    const earningsEl = qs(this.mainView, '[data-work="earnings"]');
 
-    earningsEl.textContent = earnings;
+    replaceHTML(earningsEl, earnings);
 
-    console.log("Render-End-WORK");
+    console.log(1, "- Render-End-WORK -", 1);
   }
 }

@@ -1,36 +1,17 @@
-export const WorkStorage = class extends EventTarget {
-  constructor(storageKey) {
-    super();
-    this.storageKey = storageKey;
-    this._fetchStorage();
+import { MainStorage } from "./MainStorage.js";
 
-    if (!window.localStorage.getItem(this.storageKey)) {
-      const storage = {
-        balance: 0,
-        loan: 0,
-        loanOffer: 0,
-        earnings: 0,
-        laptops: {},
-      };
-      window.localStorage.setItem(this.storageKey, JSON.stringify(storage));
-    }
-
-    this.getData = () => {
-      return this.storage;
-    };
-
-    this.getEarnings = () => {
-      return parseInt(this.storage.earnings);
-    };
+export class WorkStorage extends MainStorage {
+  constructor(storageKey, identifier) {
+    super(storageKey, identifier);
   }
 
-  name() {
-    return 2;
+  getEarnings() {
+    return parseInt(this.storage.earnings);
   }
 
   _store() {
     window.localStorage.setItem(this.storageKey, JSON.stringify(this.storage));
-    this.dispatchEvent(new CustomEvent("storeWork"));
+    this.dispatchEvent(new CustomEvent(this.identifier));
   }
 
   _fetchStorage() {
@@ -41,4 +22,4 @@ export const WorkStorage = class extends EventTarget {
     this.storage.earnings = this.getEarnings() + earnings;
     this._store();
   }
-};
+}
