@@ -7,9 +7,6 @@ import { Work } from "./Work/Work.js";
 
 import { navController } from "./viewHandler/navController.js";
 
-import { delegate } from "./utils.js";
-import { LoanView } from "./viewHandler/LoanView.js";
-
 const laptopsStorage = new LaptopsStorage("LaptopsStorage");
 const laptops = new Laptops(laptopsStorage);
 const bankStorage = new BankStorage("BankStorage");
@@ -20,20 +17,8 @@ const work = new Work(workStorage);
 const App = {
   init() {
     navController({ work }, { bank }, { laptops });
-    LoanView(bank);
 
-    this.newShadowEvent("pointerdown", '[data-work="work-button"]', () => {
-      workStorage.increaseEarnings(100);
-    });
-  },
-
-  newShadowEvent(event, selector, handler) {
-    const mainView = document.querySelector("main-view").shadowRoot;
-
-    delegate(mainView, selector, event, (e) => {
-      const $el = e.target.closest(selector);
-      handler(e, $el);
-    });
+    work.init();
   },
 };
 

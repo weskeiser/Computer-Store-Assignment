@@ -6,17 +6,16 @@ export const LoanView = (bankController) => {
     class extends HTMLElement {
       constructor() {
         super();
-        const mainView = qs(document, "main-view").shadowRoot;
 
         const applyTemplate = qs(
-          mainView,
+          bankController.mainView.shadowRoot,
           '[data-loan="apply-template"]'
         ).content;
 
         const shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.appendChild(applyTemplate.cloneNode(true));
 
-        bankController.handleView(this);
+        bankController.loanViewInit(this);
       }
 
       // slot.setAttribute("slot", "loan-slot");
