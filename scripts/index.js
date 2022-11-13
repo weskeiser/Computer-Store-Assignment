@@ -1,9 +1,9 @@
 import { LaptopsStorage } from "./store/LaptopsStorage/LaptopsStorage.js";
 import { BankStorage } from "./store/BankStorage/BankStorage.js";
 import { WorkStorage } from "./store/WorkStorage/WorkStorage.js";
-import { Laptops } from "./Laptops/Laptops.js";
-import { Bank } from "./Bank/Bank.js";
-import { Work } from "./Work/Work.js";
+import { Laptops } from "./Controllers/Laptops/Laptops.js";
+import { Bank } from "./Controllers/Bank/Bank.js";
+import { Work } from "./Controllers/Work/Work.js";
 
 import { navController } from "./viewHandler/navController.js";
 

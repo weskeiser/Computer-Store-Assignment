@@ -1,6 +1,6 @@
-import { MainViews } from "../MainViews/MainViews.js";
-import { multiQs, newDeepEvent, qs, replaceHTML } from "../utils.js";
-import { LoanView } from "../viewHandler/LoanView.js";
+import { MainViews } from "../../MainViews/MainViews.js";
+import { multiQs, addDeepListener, qs, replaceHTML } from "../../utils.js";
+import { LoanView } from "../../viewHandler/LoanView.js";
 import { isEligible } from "./checkEligibility.js";
 
 export class Bank extends MainViews {
@@ -27,20 +27,19 @@ export class Bank extends MainViews {
   }
 
   loanViewInit(customEl) {
-    // - Show modal
-    newDeepEvent(
+    addDeepListener(
       customEl.shadowRoot,
       "pointerdown",
       '[data-loan="apply-btn"]',
-      this.showModal
+      this.showApplyModal
     );
 
-    newDeepEvent(customEl.shadowRoot, "submit", "#loanApplication", (e) =>
+    addDeepListener(customEl.shadowRoot, "submit", "#loanApplication", (e) =>
       this.handleLoanApplication(e, customEl)
     );
   }
 
-  showModal(e, btn) {
+  showApplyModal(e, btn) {
     const modal = btn.nextElementSibling;
     e.button !== 0 ? null : modal.showModal();
   }
@@ -67,10 +66,18 @@ export class Bank extends MainViews {
       parseInt(requestAmount.value)
     );
 
-    const form = qs(customEl.shadowRoot, '[data-loan="confirmation"]');
+    const [form, termsSlot] = multiQs(
+      customEl.shadowRoot,
+      '[data-loan="confirmation"]',
+      '[data-loan="terms-slot"]'
+    );
+
     const table = qs(form, "table");
-    const { caption, tHead, rows } = table;
-    const { statusAmount } = rows;
+    const {
+      caption,
+      tHead,
+      rows: { statusAmount },
+    } = table;
 
     if (!eligible) {
       caption.insertAdjacentHTML("beforebegin", "Ineligible");
@@ -79,12 +86,12 @@ export class Bank extends MainViews {
         "You are not eligible for a loan"
       );
       statusAmount.insertAdjacentHTML("beforebegin", "");
-      // loanTerms.classList.add("hidden");
+      termsSlot.removeAttribute("name", "terms-slot");
     } else {
       caption.insertAdjacentHTML("beforebegin", "Eligible");
       tHead.insertAdjacentHTML("beforebegin", "tHeadTextt");
       statusAmount.insertAdjacentHTML("beforebegin", requestAmount.value);
-      // loanTerms.classList.remove("hidden");
+      termsSlot.setAttribute("name", "terms-slot");
     }
   }
 }

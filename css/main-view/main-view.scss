@@ -1,0 +1,129 @@
+@import url("../global/global.css");
+
+:host(main-view) > section {
+  background-color: skyblue;
+  display: grid;
+  grid-template-rows: 8em 15em 1fr;
+  height: 100%;
+
+  h1 {
+    background-color: green;
+    font-size: 3em;
+    text-align: center;
+    text-transform: uppercase;
+    padding-top: 0.75em;
+  }
+
+  .work {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 4em 1.618fr 1fr;
+
+    &_job {
+      background-color: pink;
+      display: flex;
+
+      & > * {
+        margin: auto;
+        font-size: 2em;
+      }
+
+      // h2 {
+      // }
+
+      button {
+        width: 6em;
+        height: 3em;
+      }
+    }
+
+    &_banking {
+      display: flex;
+
+      button {
+        width: 45%;
+        height: 50%;
+        margin: auto;
+        font-size: 2em;
+      }
+
+      &-deposit {
+        background-color: greenyellow;
+      }
+
+      &-repay {
+        background-color: aquamarine;
+      }
+    }
+  }
+
+  & > table {
+    background-color: pink;
+
+    thead {
+      font-size: 2em;
+    }
+
+    tbody {
+      font-size: 4em;
+      text-align: center;
+      // td {
+      //   text-align: center;
+      // }
+    }
+  }
+
+  // .bank_loan {
+  //   loan-view {
+  //     height: 100%;
+  //     display: flex;
+  //   }
+
+  //   &_apply-btn {
+  //     width: 80%;
+  //     height: 60%;
+  //     margin: auto;
+  //     font-size: 2em;
+  //   }
+
+  //   :modal {
+  //     height: 60%;
+  //     width: 80%;
+
+  //     form {
+  //       display: grid;
+  //       grid-template-rows: 3em 1fr 6em;
+  //       height: 100%;
+
+  //       h2 {
+  //         font-size: 2em;
+  //       }
+
+  //       label,
+  //       input {
+  //         font-size: 1.4em;
+  //         // margin: auto;
+  //         // height: 3.5em;
+  //       }
+
+  //       .loan_apply-confirmation {
+  //         display: flex;
+
+  //         button {
+  //           width: 45%;
+  //           height: 100%;
+  //           margin: auto;
+  //           color: #fff;
+  //         }
+
+  //         &-accept {
+  //           background-color: green;
+  //         }
+  //         &-cancel {
+  //           background-color: rgb(157, 41, 41);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+}

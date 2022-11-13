@@ -62,55 +62,64 @@
 
           <div class="bank_loan">
             <loan-view>
-              <span data-loan="slot"> asl;dkjfasl;dkj </span>
+              <div
+                data-loan="terms"
+                slot="terms-slot"
+              >
+                <label for="loanTerms">Agree to terms</label>
+                <input
+                  id="loanTerms"
+                  type="checkbox"
+                  name="loanTerms"
+                />
+              </div>
             </loan-view>
 
             <template data-loan="apply-template">
               <div data-loan="apply-view">
-                <slot name="loan-slot">
-                  <button
-                    class="bank_loan_apply-btn"
-                    data-loan="apply-btn"
+                <button
+                  class="bank_loan_apply-btn"
+                  data-loan="apply-btn"
+                >
+                  Apply for a loan
+                </button>
+
+                <dialog data-loan="application-modal">
+                  <form
+                    id="loanApplication"
+                    method="dialog"
                   >
-                    Apply for a loan
-                  </button>
+                    <h2>Loan Application</h2>
 
-                  <dialog data-loan="application-modal">
-                    <form
-                      id="loanApplication"
-                      method="dialog"
-                    >
-                      <h2>Loan Application</h2>
+                    <div>
+                      <label for="requestAmount">Amount</label>
+                      <input
+                        name="requestAmount"
+                        id="requestAmount"
+                        type="number"
+                        min="1"
+                      />
+                    </div>
 
-                      <div>
-                        <label for="requestAmount">Amount</label>
-                        <input
-                          name="requestAmount"
-                          id="requestAmount"
-                          type="number"
-                          min="1"
-                        />
-                      </div>
-
-                      <div class="loan_apply-confirmation">
-                        <button
-                          class="loan_apply-confirmation-cancel"
-                          type="submit"
-                          name="cancel"
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          class="loan_apply-confirmation-accept"
-                          type="submit"
-                          name="accept"
-                        >
-                          Apply
-                        </button>
-                      </div>
-                    </form>
-                  </dialog>
-                </slot>
+                    <div class="loan_apply-confirmation">
+                      <button
+                        class="loan_apply-confirmation-cancel"
+                        type="submit"
+                        name="cancel"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        class="loan_apply-confirmation-accept"
+                        type="submit"
+                        name="accept"
+                      >
+                        Apply
+                      </button>
+                    </div>
+                  </form>
+                </dialog>
+                <!-- </slot> -->
               </div>
             </template>
 
@@ -137,14 +146,10 @@
                   </tbody>
                 </table>
 
-                <div data-loan="terms">
-                  <label for="loanTerms">Agree to terms</label>
-                  <input
-                    id="loanTerms"
-                    type="checkbox"
-                    name="loanTerms"
-                  />
-                </div>
+                <slot
+                  name="terms-slot"
+                  data-loan="terms-slot"
+                ></slot>
 
                 <button
                   type="submit"
@@ -178,13 +183,13 @@
           <div class="work_banking">
             <button
               class="work_banking-deposit"
-              data-bank="deposit"
+              data-work="deposit-button"
             >
               Deposit
             </button>
             <button
               class="work_banking-repay"
-              data-loan="repay"
+              data-work="repay-button"
             >
               Repay
             </button>
@@ -193,7 +198,18 @@
       </template>
 
       <template data-template="laptops">
-        <section class="laptops">laskdf893749287</section>
+        <section class="laptops">
+          <h1>Laptops</h1>
+
+          <form data-laptops="buy-now">
+            <select
+              name="laptopsDropdown"
+              id="laptopsDropdown"
+            ></select>
+
+            <button data-laptops="buy-now">BUY NOW</button>
+          </form>
+        </section>
       </template>
 
       <!--  -->

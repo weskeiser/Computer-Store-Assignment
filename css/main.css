@@ -1,4 +1,4 @@
-@import url("./css-reset.css");
+@import url("./global/global.css");
 body {
   background-color: bisque;
   height: 100%;
@@ -10,62 +10,6 @@ body {
 main {
   background-color: white;
   height: 100%;
-}
-
-:host(main-view) > section {
-  background-color: red;
-  display: grid;
-  grid-template-rows: 8em 15em 1fr;
-  height: 100%;
-}
-:host(main-view) > section h1 {
-  background-color: green;
-  font-size: 3em;
-  text-align: center;
-  text-transform: uppercase;
-  padding-top: 0.75em;
-}
-:host(main-view) > section .work {
-  height: 100%;
-  display: grid;
-  grid-template-rows: 4em 1.618fr 1fr;
-}
-:host(main-view) > section .work_job {
-  background-color: pink;
-  display: flex;
-}
-:host(main-view) > section .work_job > * {
-  margin: auto;
-  font-size: 2em;
-}
-:host(main-view) > section .work_job button {
-  width: 6em;
-  height: 3em;
-}
-:host(main-view) > section .work_banking {
-  display: flex;
-}
-:host(main-view) > section .work_banking button {
-  width: 45%;
-  height: 50%;
-  margin: auto;
-  font-size: 2em;
-}
-:host(main-view) > section .work_banking-deposit {
-  background-color: greenyellow;
-}
-:host(main-view) > section .work_banking-repay {
-  background-color: aquamarine;
-}
-:host(main-view) > section > table {
-  background-color: pink;
-}
-:host(main-view) > section > table thead {
-  font-size: 2em;
-}
-:host(main-view) > section > table tbody {
-  font-size: 4em;
-  text-align: center;
 }
 
 .main_nav {

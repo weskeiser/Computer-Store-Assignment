@@ -17,11 +17,6 @@ export class BankStorage extends MainStorage {
     return parseInt(this.storage.loanOffer);
   }
 
-  deposit(depositAmount) {
-    this.storage.balance = this.balance + depositAmount;
-    this._store();
-  }
-
   updateLoanOffer(offer) {
     this.storage.loanOffer = offer;
     this._store();

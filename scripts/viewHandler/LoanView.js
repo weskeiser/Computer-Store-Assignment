@@ -17,30 +17,6 @@ export const LoanView = (bankController) => {
 
         bankController.loanViewInit(this);
       }
-
-      // slot.setAttribute("slot", "loan-slot");
-      // dataStore.updateLoanOffer(requestAmount.value);
-      //
-      // const slot = this.querySelector('[data-loan="slot"]');
-      // slot.setAttribute("slot", "loan-slot");
-      //
-
-      // // - Handle loan confirmation
-      // loanConfirmation.addEventListener("submit", (e) => {
-      //   e.preventDefault();
-      //   if (e.submitter.name === "decline") {
-      //     loanStatus.removeAttribute("slot");
-      //     loanApplyButton.setAttribute("slot", "loan-slot");
-      //     return;
-      //   }
-
-      //   const {loanOffer} = dataStore;
-      //   const eligible = isEligible(dataStore.allData, parseInt(loanOffer));
-
-      ///
-      //
-      // const slot = this.querySelector('[data-loan="slot"]');
-      // slot.setAttribute("slot", "loan-slot");
     }
   );
 };

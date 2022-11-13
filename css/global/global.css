@@ -1,0 +1,14 @@
+@import url("../css-reset.css");
+
+body {
+  background-color: bisque;
+  height: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr 5em;
+}
+
+main {
+  background-color: white;
+  height: 100%;
+} /*# sourceMappingURL=global.css.map */

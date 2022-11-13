@@ -1,14 +1,11 @@
 import { qs, qsA } from "../utils.js";
 
-const initialViewName = "bank";
+const initialViewName = "laptops";
 
 const $ = {
   nav: qs(document, '[data-view="nav"]'),
   initialView: qs(document, `[data-template=${initialViewName}]`).content,
-  allViews: qsA(
-    document,
-    '[data-template="bank"], [data-template="work"], [data-template="laptops"]'
-  ),
+  allViews: qsA(document, "[data-template]"),
 };
 
 export const navController = (...viewClasses) => {
@@ -17,7 +14,9 @@ export const navController = (...viewClasses) => {
     class extends HTMLElement {
       constructor() {
         super();
-        this.mainSheet = this.newStyleSheetLink("./css/main.css");
+        this.mainSheet = this.newStyleSheetLink(
+          "./css/main-view/main-view.css"
+        );
 
         const shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.prepend(this.mainSheet);
@@ -54,6 +53,8 @@ export const navController = (...viewClasses) => {
         });
 
         const viewClass = viewClassObj[selectedViewName];
+
+        viewClass.storage._fetchStorage();
 
         viewClass.previouslyRendered
           ? viewClass.render()

@@ -11,8 +11,12 @@ export class MainStorage extends EventTarget {
         loan: 0,
         loanOffer: 0,
         earnings: 0,
-        laptops: {},
+        laptops: {
+          selectedId: 0,
+          purchased: [],
+        },
       };
+
       window.localStorage.setItem(this.storageKey, JSON.stringify(storage));
     }
 
@@ -30,12 +34,12 @@ export class MainStorage extends EventTarget {
     return this.storage;
   }
 
+  _fetchStorage() {
+    this.storage = JSON.parse(window.localStorage.getItem(this.storageKey));
+  }
+
   _store() {
     window.localStorage.setItem(this.storageKey, JSON.stringify(this.storage));
     this.dispatchEvent(new CustomEvent(this.identifier));
-  }
-
-  _fetchStorage() {
-    this.storage = JSON.parse(window.localStorage.getItem(this.storageKey));
   }
 }

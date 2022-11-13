@@ -56,16 +56,17 @@ _Assignment summarized from provided documents and in-class instructions below_
 
   - _accumulated salary is separate from bank account balance_
 
+- Include button for **performing work**
+
+  - _each click yields 100 units of money_
+
 - Include button to **deposit salary** into bank account
 
   - _if outstanding loan:
     10% of salary is used as interest free downpayment_
 
-- Include button for **performing work**
-
-  - _each click yields 100 units of money_
-
 - Include button to spend all current earnings on **loan downpayment**
+
   - _if loan is fully paid as a result:
     transfer remaining to bank account_
 
