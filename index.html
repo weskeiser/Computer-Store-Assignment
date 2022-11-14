@@ -76,7 +76,10 @@
             </loan-view>
 
             <template data-loan="apply-template">
-              <div data-loan="apply-view">
+              <div
+                data-loan="apply-view"
+                class="bank_loan"
+              >
                 <button
                   class="bank_loan_apply-btn"
                   data-loan="apply-btn"
@@ -201,19 +204,47 @@
         <section class="laptops">
           <h1>Laptops</h1>
 
-          <form data-laptops="buy-now">
-            <select
-              name="laptopsDropdown"
-              id="laptopsDropdown"
-            ></select>
+          <form
+            data-laptops="select-form"
+            class="select-form"
+            id="select-form"
+          ></form>
 
-            <button data-laptops="buy-now">BUY NOW</button>
+          <form
+            data-laptops="buy-form"
+            class="buy-form"
+            id="buy-form"
+          >
+            <div class="details">
+              <dl>
+                <dt data-laptops-details="title"></dt>
+                <dd data-laptops-details="desc"></dd>
+              </dl>
+
+              <ul data-laptops="specs"></ul>
+            </div>
+
+            <div class="checkout">
+              <hgroup>
+                <h2>Price</h2>
+                <p data-laptops-checkout="price"></p>
+                <p
+                  data-laptops-checkout="stock"
+                  class="stock"
+                ></p>
+              </hgroup>
+              <button
+                data-laptops="buy-now"
+                name="buy-button"
+              >
+                Buy now
+              </button>
+            </div>
           </form>
         </section>
       </template>
 
-      <!--  -->
-      <main-view class="view-container"> </main-view>
+      <main-view class="view-container"></main-view>
     </main>
 
     <nav

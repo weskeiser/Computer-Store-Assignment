@@ -46,5 +46,7 @@ export class Work extends MainViews {
         this.storage.repayLoan();
       }
     );
+
+    this.render();
   }
 }

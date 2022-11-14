@@ -11,7 +11,6 @@ export class MainViews {
     this.previouslyRendered = true;
 
     // this.storage.addEventListener(this.storage.identifier, () => this.render());
-
-    this.render();
+    this.init ? this.init() : this.render();
   }
 }

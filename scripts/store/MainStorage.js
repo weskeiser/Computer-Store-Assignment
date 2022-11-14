@@ -12,7 +12,7 @@ export class MainStorage extends EventTarget {
         loanOffer: 0,
         earnings: 0,
         laptops: {
-          selectedId: 0,
+          selectedId: 1,
           purchased: [],
         },
       };

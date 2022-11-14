@@ -17,8 +17,6 @@ const work = new Work(workStorage);
 const App = {
   init() {
     navController({ work }, { bank }, { laptops });
-
-    work.init();
   },
 };
 

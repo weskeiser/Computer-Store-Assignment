@@ -1,4 +1,8 @@
-@import url("./css-reset.css");
+@import url("../css-reset.css");
+
+button {
+  cursor: pointer;
+}
 
 body {
   background-color: bisque;

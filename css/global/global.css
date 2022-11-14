@@ -1,4 +1,7 @@
 @import url("../css-reset.css");
+button {
+  cursor: pointer;
+}
 
 body {
   background-color: bisque;
@@ -11,4 +14,4 @@ body {
 main {
   background-color: white;
   height: 100%;
-} /*# sourceMappingURL=global.css.map */
+}/*# sourceMappingURL=global.css.map */

@@ -29,13 +29,34 @@ export class Bank extends MainViews {
   loanViewInit(customEl) {
     addDeepListener(
       customEl.shadowRoot,
-      "pointerdown",
+      "click",
       '[data-loan="apply-btn"]',
       this.showApplyModal
     );
 
     addDeepListener(customEl.shadowRoot, "submit", "#loanApplication", (e) =>
       this.handleLoanApplication(e, customEl)
+    );
+
+    addDeepListener(
+      customEl.shadowRoot,
+      "submit",
+      '[data-loan="confirmation"]',
+      (e, el) => {
+        e.preventDefault();
+        console.log(e);
+        console.log(el);
+
+        if (e.submitter.name === "decline") {
+          // change view
+          return;
+        }
+
+        const { loanOffer } = this.storage.storage.loanOffer;
+
+        const eligible = isEligible(this.storage.storage, parseInt(loanOffer));
+        console.log(eligible);
+      }
     );
   }
 
@@ -55,10 +76,10 @@ export class Bank extends MainViews {
 
     this.changeTemplate(customEl, '[data-loan="status-template"]');
 
-    this.handleForm(customEl, e);
+    this.handleLoanApplicationForm(customEl, e);
   }
 
-  handleForm(customEl, e) {
+  handleLoanApplicationForm(customEl, e) {
     const dataStore = this.storage;
     const { requestAmount } = e.target;
     const eligible = isEligible(
@@ -95,16 +116,3 @@ export class Bank extends MainViews {
     }
   }
 }
-
-// // - Handle loan confirmation
-// loanConfirmation.addEventListener("submit", (e) => {
-//   e.preventDefault();
-//   if (e.submitter.name === "decline") {
-//     loanStatus.removeAttribute("slot");
-//     loanApplyButton.setAttribute("slot", "loan-slot");
-//     return;
-//   }
-
-//   const {loanOffer} = dataStore;
-//   const eligible = isEligible(dataStore.allData, parseInt(loanOffer));
-// });

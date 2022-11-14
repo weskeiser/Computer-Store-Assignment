@@ -1,6 +1,6 @@
 import { qs, qsA } from "../utils.js";
 
-const initialViewName = "laptops";
+const initialViewName = "bank";
 
 const $ = {
   nav: qs(document, '[data-view="nav"]'),
@@ -56,9 +56,11 @@ export const navController = (...viewClasses) => {
 
         viewClass.storage._fetchStorage();
 
-        viewClass.previouslyRendered
-          ? viewClass.render()
-          : viewClass.initialRender();
+        if (viewClass.previouslyRendered) {
+          viewClass.init ? viewClass.init() : viewClass.render();
+        } else {
+          viewClass.initialRender();
+        }
       }
     }
   );
