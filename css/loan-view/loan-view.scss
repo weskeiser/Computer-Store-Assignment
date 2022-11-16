@@ -1,25 +1,35 @@
 @import url("../global/global.css");
 
-:host(loan-view) > {
-  background-color: darkolivegreen;
+$mainColor1: #120037;
+$mainColor2: #1016bf;
+
+$textColor1: #fff;
+
+:host(loan-view) > * {
+  color: $textColor1;
 }
 
 :host(loan-view) > .loan_confirmation {
   height: 100%;
+  color: $textColor1;
+  background-color: $mainColor1;
+  margin-inline: 6px;
 
   form {
-    background-color: #fff;
+    background-color: $mainColor2;
+    border-radius: 1em;
 
     height: 100%;
     display: grid;
-    grid-template-rows: auto auto 5em;
+    // grid-template-rows: auto auto;
 
     table {
-      background-color: bisque;
       display: grid;
-      grid-template-rows: 3em auto auto;
+      grid-template-rows: 2fr 1fr 1fr;
       justify-content: center;
       text-align: center;
+      border-radius: 1em;
+      height: 100%;
 
       caption {
         font-size: 2em;
@@ -59,17 +69,29 @@
 :host(loan-view) > .bank_loan {
   height: 100%;
   display: flex;
+  color: $textColor1;
+  background-color: $mainColor2;
+  border-radius: 1em;
+  margin-inline: 6px;
 
   & > button {
     width: 80%;
     height: 60%;
     margin: auto;
     font-size: 2em;
+    background-color: $mainColor1;
+    color: $textColor1;
+    border-radius: 2rem;
+    border: 3px solid yellow;
   }
 
   :modal {
     height: 60%;
     width: 80%;
+    border-radius: 1em;
+    color: $textColor1;
+    background-color: $mainColor2;
+    border: 3px solid $textColor1;
 
     form {
       display: grid;
@@ -77,17 +99,39 @@
       height: 100%;
 
       h2 {
-        font-size: 2em;
+        font-size: 1.8em;
+        text-transform: uppercase;
+        text-align: center;
       }
 
-      label,
-      input {
-        font-size: 1.4em;
-        // margin: auto;
-        // height: 3.5em;
+      .application_modal-field {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+
+        label {
+          text-align: center;
+          margin-inline: auto;
+        }
+
+        input {
+          height: 2em;
+          border-radius: 1em;
+          border: 0;
+          padding-left: 0.5em;
+          margin-inline: auto;
+          width: 70%;
+        }
+
+        label,
+        input {
+          font-size: 1.4em;
+          text-transform: uppercase;
+        }
       }
 
-      .loan_apply-confirmation {
+      .loan_apply_confirmation {
         display: flex;
 
         button {
@@ -95,6 +139,10 @@
           height: 100%;
           margin: auto;
           color: #fff;
+          text-transform: uppercase;
+          font-size: 1em;
+          font-weight: 600;
+          border-radius: 1em;
         }
 
         &-accept {

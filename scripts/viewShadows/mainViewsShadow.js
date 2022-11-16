@@ -1,6 +1,6 @@
 import { newStyleSheetLink, qs, qsA } from "../utils.js";
 
-const initialViewName = "bank";
+const initialViewName = "laptops";
 
 const $ = {
   nav: qs(document, '[data-view="nav"]'),
@@ -20,15 +20,15 @@ export const mainViewsShadow = (...viewClasses) => {
         shadowRoot.prepend(this.mainSheet);
         shadowRoot.appendChild($.initialView.cloneNode(true));
 
-        this.triggerRender(initialViewName, viewClasses);
-
         $.nav.addEventListener("pointerup", ({ target: { dataset } }) => {
-          this.replaceView(dataset.navButton);
+          this.viewInit(dataset.navButton);
           this.triggerRender(dataset.navButton, viewClasses);
         });
+
+        this.triggerRender(initialViewName, viewClasses);
       }
 
-      replaceView(selectedViewName) {
+      viewInit(selectedViewName) {
         $.allViews.forEach((view) => {
           if (view.dataset.template === selectedViewName) {
             this.shadowRoot.replaceChildren(this.mainSheet);
@@ -50,7 +50,8 @@ export const mainViewsShadow = (...viewClasses) => {
 
         if (!previouslyRendered) {
           viewClass.setFirstRenderDone();
-          viewClass.init ? viewClass.init() : viewClass.render();
+          viewClass.init();
+          // viewClass.init ? viewClass.init() : viewClass.render();
         } else {
           viewClass.bindEvents();
           viewClass.render();

@@ -1,10 +1,10 @@
 @import url("../global/global.css");
 :host(main-view) > section {
-  background-color: #fff;
   height: 80vh;
+  color: #fff;
 }
 :host(main-view) > section h1 {
-  background-color: green;
+  background-color: #120037;
   font-size: 3em;
   text-align: center;
   text-transform: uppercase;
@@ -14,9 +14,13 @@
 :host(main-view) > .bank {
   display: grid;
   grid-template-rows: 8em 1fr 1fr;
+  height: 100%;
+}
+:host(main-view) > .bank h1 {
+  color: yellow;
 }
 :host(main-view) > .bank .overview {
-  background-color: aquamarine;
+  background-color: #120037;
 }
 :host(main-view) > .bank .overview thead {
   font-size: 2em;
@@ -25,11 +29,20 @@
   font-size: 4em;
   text-align: center;
 }
+:host(main-view) > .bank .overview tbody td::before {
+  content: "$";
+}
+:host(main-view) > .bank .overview tbody .balance {
+  color: green;
+}
 
 :host(main-view) > .laptops {
   display: grid;
   grid-template-rows: 8em 1fr 1fr;
   height: 100%;
+}
+:host(main-view) > .laptops h1 {
+  color: rgb(226, 103, 123);
 }
 :host(main-view) > .laptops > .select-form {
   display: grid;
@@ -37,15 +50,25 @@
   grid-template-rows: 1fr 1fr;
   gap: 0.4em;
   padding: 0.4em;
+  color: rgb(226, 103, 123);
 }
 :host(main-view) > .laptops > .select-form > select {
   grid-column: 1/3;
+  font-size: 1em;
+  background-color: #120037;
+  border: 3px solid rgb(224, 163, 173);
+  border-radius: 1em;
+  color: rgb(224, 163, 173);
 }
 :host(main-view) > .laptops > .select-form > [selected=true] {
   border: 0.4em solid green;
 }
+:host(main-view) > .laptops > .select-form img {
+  border-radius: 1em;
+}
 :host(main-view) > .laptops > .select-form > div {
   display: grid;
+  border-radius: 0.5em;
 }
 :host(main-view) > .laptops > .select-form > div > * {
   grid-row: 1;
@@ -60,10 +83,14 @@
 :host(main-view) > .laptops > .buy-form {
   display: grid;
   grid-template-columns: 1.7fr 1fr;
+  background-color: #1016bf;
+  margin-inline: 6px;
+  border-radius: 1em;
+  color: rgb(224, 163, 173);
 }
 :host(main-view) > .laptops > .buy-form > .details {
   padding: 0.2em;
-  background-color: salmon;
+  border-right: 6px solid #120037;
   display: flex;
   flex-direction: column;
 }
@@ -77,15 +104,15 @@
 }
 :host(main-view) > .laptops > .buy-form > .details dd {
   text-transform: uppercase;
-  font-size: 0.8em;
-  line-height: 1.2em;
+  font-size: 1em;
+  line-height: 0.9em;
+  margin-bottom: 0.5em;
 }
 :host(main-view) > .laptops > .buy-form > .details > ul {
   font-size: 0.8em;
   margin-top: auto;
 }
 :host(main-view) > .laptops > .buy-form > .checkout {
-  background-color: greenyellow;
   display: grid;
   grid-template-rows: 1fr 1fr;
 }
@@ -99,24 +126,35 @@
   margin: auto;
   gap: 1em;
 }
+:host(main-view) > .laptops > .buy-form > .checkout > hgroup .checkout-price::before {
+  content: "$";
+}
 :host(main-view) > .laptops > .buy-form > .checkout > hgroup p,
 :host(main-view) > .laptops > .buy-form > .checkout > hgroup h2 {
   font-size: 2em;
+  color: yellow;
 }
 :host(main-view) > .laptops > .buy-form > .checkout > hgroup p.stock {
   font-size: 1em;
-  color: #83530f;
+  color: #b19d20;
   font-weight: 600;
 }
 :host(main-view) > .laptops > .buy-form > .checkout button {
   font-size: 1.5em;
+  font-weight: 600;
+  background-color: #1016bf;
+  color: yellow;
+  border: none;
+  border-top: 6px solid #120037;
 }
 
 :host(main-view) > .work {
-  background-color: skyblue;
   display: grid;
   grid-template-rows: 8em 1fr 1fr;
   height: 100%;
+  border-radius: 1em;
+  margin-inline: 6px;
+  color: #fff;
 }
 :host(main-view) > .work .work {
   height: 100%;
@@ -124,31 +162,51 @@
   grid-template-rows: 4em 1.618fr 1fr;
 }
 :host(main-view) > .work .work_job {
-  background-color: pink;
+  background-color: #120037;
   display: flex;
 }
 :host(main-view) > .work .work_job > * {
   margin: auto;
-  font-size: 2em;
+}
+:host(main-view) > .work .work_job h2 {
+  color: yellow;
+  font-size: 3em;
+}
+:host(main-view) > .work .work_job h2::before {
+  content: "$";
 }
 :host(main-view) > .work .work_job button {
   width: 6em;
   height: 3em;
+  font-size: 1.7em;
+  border-radius: 1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #fff;
+  background-color: #120037;
+  border: 6px solid yellow;
 }
 :host(main-view) > .work .work_banking {
   display: flex;
+  background-color: #1016bf;
+  border-radius: 1em;
 }
 :host(main-view) > .work .work_banking button {
   width: 45%;
   height: 50%;
   margin: auto;
-  font-size: 2em;
+  font-size: 1.7em;
+  border-radius: 1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #fff;
+  background-color: #120037;
 }
 :host(main-view) > .work .work_banking-deposit {
-  background-color: greenyellow;
+  border: 6px solid #8a8a8a;
 }
 :host(main-view) > .work .work_banking-repay {
-  background-color: aquamarine;
+  border: 6px solid rgb(128, 126, 0);
 }
 :host(main-view) > .work > table {
   background-color: pink;

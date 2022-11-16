@@ -1,23 +1,27 @@
 @import url("../global/global.css");
-:host(loan-view) > {
-  background-color: darkolivegreen;
+:host(loan-view) > * {
+  color: #fff;
 }
 
 :host(loan-view) > .loan_confirmation {
   height: 100%;
+  color: #fff;
+  background-color: #120037;
+  margin-inline: 6px;
 }
 :host(loan-view) > .loan_confirmation form {
-  background-color: #fff;
+  background-color: #1016bf;
+  border-radius: 1em;
   height: 100%;
   display: grid;
-  grid-template-rows: auto auto 5em;
 }
 :host(loan-view) > .loan_confirmation form table {
-  background-color: bisque;
   display: grid;
-  grid-template-rows: 3em auto auto;
+  grid-template-rows: 2fr 1fr 1fr;
   justify-content: center;
   text-align: center;
+  border-radius: 1em;
+  height: 100%;
 }
 :host(loan-view) > .loan_confirmation form table caption {
   font-size: 2em;
@@ -49,16 +53,28 @@
 :host(loan-view) > .bank_loan {
   height: 100%;
   display: flex;
+  color: #fff;
+  background-color: #1016bf;
+  border-radius: 1em;
+  margin-inline: 6px;
 }
 :host(loan-view) > .bank_loan > button {
   width: 80%;
   height: 60%;
   margin: auto;
   font-size: 2em;
+  background-color: #120037;
+  color: #fff;
+  border-radius: 2rem;
+  border: 3px solid yellow;
 }
 :host(loan-view) > .bank_loan :modal {
   height: 60%;
   width: 80%;
+  border-radius: 1em;
+  color: #fff;
+  background-color: #1016bf;
+  border: 3px solid #fff;
 }
 :host(loan-view) > .bank_loan :modal form {
   display: grid;
@@ -66,24 +82,49 @@
   height: 100%;
 }
 :host(loan-view) > .bank_loan :modal form h2 {
-  font-size: 2em;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  text-align: center;
 }
-:host(loan-view) > .bank_loan :modal form label,
-:host(loan-view) > .bank_loan :modal form input {
+:host(loan-view) > .bank_loan :modal form .application_modal-field {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+:host(loan-view) > .bank_loan :modal form .application_modal-field label {
+  text-align: center;
+  margin-inline: auto;
+}
+:host(loan-view) > .bank_loan :modal form .application_modal-field input {
+  height: 2em;
+  border-radius: 1em;
+  border: 0;
+  padding-left: 0.5em;
+  margin-inline: auto;
+  width: 70%;
+}
+:host(loan-view) > .bank_loan :modal form .application_modal-field label,
+:host(loan-view) > .bank_loan :modal form .application_modal-field input {
   font-size: 1.4em;
+  text-transform: uppercase;
 }
-:host(loan-view) > .bank_loan :modal form .loan_apply-confirmation {
+:host(loan-view) > .bank_loan :modal form .loan_apply_confirmation {
   display: flex;
 }
-:host(loan-view) > .bank_loan :modal form .loan_apply-confirmation button {
+:host(loan-view) > .bank_loan :modal form .loan_apply_confirmation button {
   width: 45%;
   height: 100%;
   margin: auto;
   color: #fff;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: 600;
+  border-radius: 1em;
 }
-:host(loan-view) > .bank_loan :modal form .loan_apply-confirmation-accept {
+:host(loan-view) > .bank_loan :modal form .loan_apply_confirmation-accept {
   background-color: green;
 }
-:host(loan-view) > .bank_loan :modal form .loan_apply-confirmation-cancel {
+:host(loan-view) > .bank_loan :modal form .loan_apply_confirmation-cancel {
   background-color: rgb(157, 41, 41);
 }/*# sourceMappingURL=loan-view.css.map */

@@ -10,14 +10,10 @@ export class Work extends MainViews {
   }
 
   render() {
-    console.log(1, "- Render-Begin-WORK -", 1);
-
     const earnings = this.storage.earnings;
     const earningsEl = qs(this.mainView.shadowRoot, '[data-work="earnings"]');
 
     replaceHTML(earningsEl, earnings);
-
-    console.log(1, "- Render-End-WORK -", 1);
   }
 
   bindEvents() {

@@ -38,7 +38,12 @@
           <table class="overview">
             <thead>
               <tr>
-                <th id="bankLoan">Loan</th>
+                <th
+                  id="bankLoan"
+                  class="hidden"
+                >
+                  Loan
+                </th>
                 <th id="bankBalance">Balance</th>
               </tr>
             </thead>
@@ -47,12 +52,14 @@
                 <td
                   headers="bankLoan"
                   data-loan="amount"
+                  class="hidden"
                 >
                   -
                 </td>
                 <td
                   headers="bankBalance"
                   data-bank="balance"
+                  class="balance"
                 >
                   -
                 </td>
@@ -61,24 +68,7 @@
           </table>
 
           <div class="bank_loan">
-            <loan-view>
-              <div
-                data-loan="terms"
-                slot="terms-slot"
-                class="terms"
-              >
-                <label
-                  class="test"
-                  for="loanTerms"
-                  >Agree to terms</label
-                >
-                <input
-                  id="loanTerms"
-                  type="checkbox"
-                  name="loanTerms"
-                />
-              </div>
-            </loan-view>
+            <loan-view> </loan-view>
 
             <template data-loan="apply-template">
               <div
@@ -99,27 +89,25 @@
                   >
                     <h2>Loan Application</h2>
 
-                    <div>
-                      <label for="requestAmount">Amount</label>
+                    <div class="application_modal-field">
+                      <label for="requestAmount">Amount in USD</label>
                       <input
-                        required
                         name="requestAmount"
                         id="requestAmount"
-                        type="number"
                         min="1"
                       />
                     </div>
 
-                    <div class="loan_apply-confirmation">
+                    <div class="loan_apply_confirmation">
                       <button
-                        class="loan_apply-confirmation-cancel"
+                        class="loan_apply_confirmation-cancel"
                         type="submit"
                         name="cancel"
                       >
                         Cancel
                       </button>
                       <button
-                        class="loan_apply-confirmation-accept"
+                        class="loan_apply_confirmation-accept"
                         type="submit"
                         name="accept"
                       >
@@ -155,12 +143,6 @@
                     </tbody>
                   </table>
 
-                  <slot
-                    name="terms-slot"
-                    data-loan="terms-slot"
-                  >
-                  </slot>
-
                   <div class="buttons">
                     <button
                       type="submit"
@@ -189,8 +171,8 @@
           <h1>Work</h1>
 
           <div class="work_job">
-            <h2 data-work="earnings">0</h2>
             <button data-work="work-button">Work</button>
+            <h2 data-work="earnings">0</h2>
           </div>
 
           <div class="work_banking">
@@ -236,8 +218,10 @@
 
             <div class="checkout">
               <hgroup>
-                <h2>Price</h2>
-                <p data-laptops-checkout="price"></p>
+                <p
+                  data-laptops-checkout="price"
+                  class="checkout-price"
+                ></p>
                 <p
                   data-laptops-checkout="stock"
                   class="stock"
@@ -251,6 +235,26 @@
               </button>
             </div>
           </form>
+
+          <dialog
+            data-laptops="price-modal"
+            class="laptops-modal"
+          >
+            <h2>Payment failed</h2>
+            <p>Contact your bank for more information.</p>
+
+            <button type="reset">Take me back</button>
+          </dialog>
+
+          <dialog
+            data-laptops="stock-modal"
+            class="laptops-modal"
+          >
+            <h2>Out of stock</h2>
+            <p>Currently out of stock. Try again later.</p>
+
+            <button type="reset">Take me back</button>
+          </dialog>
         </section>
       </template>
 
@@ -261,7 +265,10 @@
       data-view="nav"
       class="main_nav"
     >
-      <button data-nav-button="work">
+      <button
+        data-nav-button="work"
+        class="navBtn"
+      >
         <img
           src="./images/businessman-going-to-work-svgrepo-com.svg"
           alt="Bank"
@@ -269,8 +276,9 @@
         />
       </button>
       <button
-        name="bank"
         data-nav-button="bank"
+        class="navBtn"
+        id="selectedBtn"
       >
         <img
           src="./images/bank-svgrepo-com.svg"
@@ -278,7 +286,10 @@
           data-nav-button="bank"
         />
       </button>
-      <button data-nav-button="laptops">
+      <button
+        data-nav-button="laptops"
+        class="navBtn"
+      >
         <img
           src="./images/laptop-svgrepo-com.svg"
           alt="Bank"

@@ -27,17 +27,13 @@ export class Laptops extends MainViews {
     this.render();
   }
 
-  init() {
-    this.fetchedLaptops.then((laptops) => this.handleFetch(laptops));
+  async init() {
+    await this.fetchedLaptops.then((laptops) => {
+      this.laptops = laptops;
+      this.render();
+    });
 
-    // const [selectForm, buyForm] = multiQs(
-    //   this.mainView.shadowRoot,
-    //   "#select-form",
-    //   "#buy-form"
-    // );
-
-    // selectForm.addEventListener("change", (e) => this.onSelect(e));
-    // buyForm.addEventListener("submit", (e) => this.buyLaptop(e));
+    this.bindEvents();
   }
 
   bindEvents() {
@@ -52,12 +48,8 @@ export class Laptops extends MainViews {
   }
 
   render() {
-    console.log(333, "- Render-Begin-LAPTOPS -", 333);
-
     this.renderLaptops();
     this.renderCheckout();
-
-    console.log(333, "- Render-End-LAPTOPS -", 333);
   }
 
   renderLaptops() {
@@ -145,7 +137,6 @@ export class Laptops extends MainViews {
 
   onSelect(e) {
     e.preventDefault();
-    console.log(88);
 
     const idFromInput = parseInt(e.target.dataset.laptopId);
     const idFromOption = parseInt(e.target.value);
@@ -170,18 +161,33 @@ export class Laptops extends MainViews {
     const quantityPurchased = this.storage.getStockFromPurchased(id);
 
     if (stock <= quantityPurchased) {
-      // alert("insufficient balance");
-      console.log("out of stock");
+      const stockModal = qs(
+        this.mainView.shadowRoot,
+        '[data-laptops="stock-modal"]'
+      );
+      stockModal.showModal();
+
+      stockModal.lastElementChild.addEventListener("pointerdown", () => {
+        stockModal.close();
+      });
+      return;
     }
 
     if (balance < price) {
-      // alert("insufficient balance");
-      console.log("insufficient balance");
+      const priceModal = qs(
+        this.mainView.shadowRoot,
+        '[data-laptops="price-modal"]'
+      );
+
+      priceModal.showModal();
+
+      priceModal.lastElementChild.addEventListener("pointerdown", () => {
+        priceModal.close();
+      });
+
       return;
     }
 
     this.storage.handlePurchase(id, price);
-
-    console.log("congrats");
   }
 }

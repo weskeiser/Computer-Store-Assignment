@@ -17,8 +17,6 @@ export const loanViewShadow = (bankController) => {
         const shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.prepend(this.sheet);
         shadowRoot.appendChild(applyTemplate.cloneNode(true));
-
-        bankController.loanViewInit(this);
       }
     }
   );

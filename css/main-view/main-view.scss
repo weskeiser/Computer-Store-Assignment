@@ -1,11 +1,16 @@
 @import url("../global/global.css");
 
+$mainColor1: #120037;
+$mainColor2: #1016bf;
+
+$textColor1: #fff;
+
 :host(main-view) > section {
-  background-color: #fff;
   height: 80vh;
+  color: $textColor1;
 
   h1 {
-    background-color: green;
+    background-color: $mainColor1;
     font-size: 3em;
     text-align: center;
     text-transform: uppercase;
@@ -16,9 +21,14 @@
 :host(main-view) > .bank {
   display: grid;
   grid-template-rows: 8em 1fr 1fr;
+  height: 100%;
+
+  h1 {
+    color: yellow;
+  }
 
   .overview {
-    background-color: aquamarine;
+    background-color: $mainColor1;
 
     thead {
       font-size: 2em;
@@ -27,6 +37,14 @@
     tbody {
       font-size: 4em;
       text-align: center;
+
+      & td::before {
+        content: "$";
+      }
+
+      & .balance {
+        color: green;
+      }
     }
   }
 }
@@ -36,23 +54,39 @@
   grid-template-rows: 8em 1fr 1fr;
   height: 100%;
 
+  h1 {
+    color: rgb(226, 103, 123);
+  }
+
   & > .select-form {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 1fr 1fr;
     gap: 0.4em;
     padding: 0.4em;
+    color: rgb(226, 103, 123);
 
     & > select {
       grid-column: 1/3;
+      font-size: 1em;
+      background-color: $mainColor1;
+      border: 3px solid rgb(224, 163, 173);
+      border-radius: 1em;
+      // color: rgb(226, 103, 123);
+      color: rgb(224, 163, 173);
     }
 
     & > [selected="true"] {
       border: 0.4em solid green;
     }
 
+    & img {
+      border-radius: 1em;
+    }
+
     & > div {
       display: grid;
+      border-radius: 0.5em;
 
       & > * {
         grid-row: 1;
@@ -71,10 +105,16 @@
   & > .buy-form {
     display: grid;
     grid-template-columns: 1.7fr 1fr;
+    // grid-template-columns: 50% 50%;
+    background-color: $mainColor2;
+    margin-inline: 6px;
+    border-radius: 1em;
+    color: rgb(224, 163, 173);
 
     & > .details {
       padding: 0.2em;
-      background-color: salmon;
+      // background-color: salmon;
+      border-right: 6px solid $mainColor1;
       display: flex;
       flex-direction: column;
 
@@ -90,8 +130,9 @@
 
       & dd {
         text-transform: uppercase;
-        font-size: 0.8em;
-        line-height: 1.2em;
+        font-size: 1em;
+        line-height: 0.9em;
+        margin-bottom: 0.5em;
       }
 
       & > ul {
@@ -101,7 +142,7 @@
     }
 
     & > .checkout {
-      background-color: greenyellow;
+      // background-color: greenyellow;
       display: grid;
       grid-template-rows: 1fr 1fr;
 
@@ -116,31 +157,44 @@
         margin: auto;
         gap: 1em;
 
+        .checkout-price::before {
+          content: "$";
+        }
+
         p,
         h2 {
           font-size: 2em;
+          color: yellow;
         }
 
         p.stock {
           font-size: 1em;
-          color: #83530f;
+          color: #b19d20;
           font-weight: 600;
         }
       }
 
       button {
         font-size: 1.5em;
+        font-weight: 600;
+        background-color: $mainColor2;
+        color: yellow;
+        border: none;
+        border-top: 6px solid $mainColor1;
+        // border-radius: 0 0 1em 0;
       }
     }
   }
 }
 
 :host(main-view) > .work {
-  background-color: skyblue;
   display: grid;
   // grid-template-rows: 8em 15em;
   grid-template-rows: 8em 1fr 1fr;
   height: 100%;
+  border-radius: 1em;
+  margin-inline: 6px;
+  color: $textColor1;
 
   .work {
     height: 100%;
@@ -148,39 +202,58 @@
     grid-template-rows: 4em 1.618fr 1fr;
 
     &_job {
-      background-color: pink;
+      background-color: $mainColor1;
       display: flex;
 
       & > * {
         margin: auto;
-        font-size: 2em;
       }
 
-      // h2 {
-      // }
+      h2 {
+        color: yellow;
+        font-size: 3em;
+
+        &::before {
+          content: "$";
+        }
+      }
 
       button {
         width: 6em;
         height: 3em;
+        font-size: 1.7em;
+        border-radius: 1em;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: $textColor1;
+        background-color: $mainColor1;
+        border: 6px solid yellow;
       }
     }
 
     &_banking {
       display: flex;
+      background-color: $mainColor2;
+      border-radius: 1em;
 
       button {
         width: 45%;
         height: 50%;
         margin: auto;
-        font-size: 2em;
+        font-size: 1.7em;
+        border-radius: 1em;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: $textColor1;
+        background-color: $mainColor1;
       }
 
       &-deposit {
-        background-color: greenyellow;
+        border: 6px solid #8a8a8a;
       }
 
       &-repay {
-        background-color: aquamarine;
+        border: 6px solid rgb(128, 126, 0);
       }
     }
   }
