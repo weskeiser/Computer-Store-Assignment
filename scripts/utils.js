@@ -29,3 +29,11 @@ export const addDeepListener = (target, event, selector, handler) => {
     handler(e, $el);
   });
 };
+
+export const newStyleSheetLink = (url) => {
+  const sheet = document.createElement("link");
+  sheet.setAttribute("rel", "stylesheet");
+  sheet.setAttribute("href", url);
+
+  return sheet;
+};

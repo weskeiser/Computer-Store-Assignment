@@ -1,9 +1,12 @@
+import { addDeepListener, multiQs, qs, replaceHTML } from "../../utils.js";
 import { MainViews } from "../../MainViews/MainViews.js";
-import { addDeepListener, qs, replaceHTML } from "../../utils.js";
+import { WorkStorage } from "../../store/WorkStorage/WorkStorage.js";
+
+const workStorage = new WorkStorage("WorkStorage");
 
 export class Work extends MainViews {
-  constructor(identifier) {
-    super(identifier);
+  constructor() {
+    super(workStorage);
   }
 
   render() {
@@ -17,36 +20,29 @@ export class Work extends MainViews {
     console.log(1, "- Render-End-WORK -", 1);
   }
 
-  init() {
-    this.storage.addEventListener(this.storage.identifier, () => this.render());
-
-    addDeepListener(
+  bindEvents() {
+    const [workButton, depositButton, repayButton] = multiQs(
       this.mainView.shadowRoot,
-      "pointerdown",
       '[data-work="work-button"]',
-      () => {
-        this.storage.increaseEarnings(100);
-      }
-    );
-
-    addDeepListener(
-      this.mainView.shadowRoot,
-      "pointerdown",
       '[data-work="deposit-button"]',
-      () => {
-        this.storage.depositSalary();
-      }
+      '[data-work="repay-button"]'
     );
 
-    addDeepListener(
-      this.mainView.shadowRoot,
-      "pointerdown",
-      '[data-work="repay-button"]',
-      () => {
-        this.storage.repayLoan();
-      }
-    );
+    workButton.addEventListener("pointerdown", () => {
+      this.storage.increaseEarnings(100);
+    });
 
+    depositButton.addEventListener("pointerdown", () => {
+      this.storage.depositSalary();
+    });
+
+    repayButton.addEventListener("pointerdown", () => {
+      this.storage.repayLoan();
+    });
+  }
+
+  init() {
+    this.bindEvents();
     this.render();
   }
 }

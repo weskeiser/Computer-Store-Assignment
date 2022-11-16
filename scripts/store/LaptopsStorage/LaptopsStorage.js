@@ -25,6 +25,10 @@ export class LaptopsStorage extends MainStorage {
     return 0;
   }
 
+  incrementPurchasedLaptop(id) {
+    this.storage.laptops.purchased[id].quantity++;
+  }
+
   handlePurchase(id, amount) {
     const { purchased } = this.storage.laptops;
 
@@ -32,7 +36,7 @@ export class LaptopsStorage extends MainStorage {
 
     if (alreadyPurchased) {
       const idx = purchased.indexOf(alreadyPurchased);
-      this.storage.laptops.purchased[idx].quantity += 1;
+      this.incrementPurchasedLaptop(idx);
     } else {
       purchased.push({
         id,

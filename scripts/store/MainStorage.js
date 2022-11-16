@@ -30,6 +30,10 @@ export class MainStorage extends EventTarget {
     );
   }
 
+  get balance() {
+    return parseInt(this.storage.balance);
+  }
+
   get allData() {
     return this.storage;
   }

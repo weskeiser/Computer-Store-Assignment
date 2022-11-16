@@ -1,12 +1,20 @@
+import {
+  multiQs,
+  addDeepListener,
+  qs,
+  replaceHTML,
+  newStyleSheetLink,
+} from "../../utils.js";
 import { MainViews } from "../../MainViews/MainViews.js";
-import { multiQs, addDeepListener, qs, replaceHTML } from "../../utils.js";
-import { LoanView } from "../../viewHandler/LoanView.js";
-import { isEligible } from "./checkEligibility.js";
+import { BankStorage } from "../../store/BankStorage/BankStorage.js";
+import { loanViewShadow } from "../../viewHandler/loanViewShadow.js";
+
+const bankStorage = new BankStorage("BankStorage");
 
 export class Bank extends MainViews {
-  constructor(storage) {
-    super(storage);
-    LoanView(this);
+  constructor() {
+    super(bankStorage);
+    loanViewShadow(this);
   }
 
   render() {
@@ -26,36 +34,48 @@ export class Bank extends MainViews {
     console.log(22, "- Render-End-BANK -", 22);
   }
 
-  loanViewInit(customEl) {
+  init() {
+    this.render();
+  }
+
+  bindEvents() {}
+
+  loanViewInit(viewShadow) {
     addDeepListener(
-      customEl.shadowRoot,
+      viewShadow.shadowRoot,
       "click",
       '[data-loan="apply-btn"]',
       this.showApplyModal
     );
 
-    addDeepListener(customEl.shadowRoot, "submit", "#loanApplication", (e) =>
-      this.handleLoanApplication(e, customEl)
+    addDeepListener(viewShadow.shadowRoot, "submit", "#loanApplication", (e) =>
+      this.handleLoanApplication(e, viewShadow)
     );
 
     addDeepListener(
-      customEl.shadowRoot,
+      viewShadow.shadowRoot,
       "submit",
       '[data-loan="confirmation"]',
       (e, el) => {
         e.preventDefault();
         console.log(e);
+        console.log(this.storage.allData);
+        console.log(e.target);
         console.log(el);
 
         if (e.submitter.name === "decline") {
-          // change view
+          this.changeLoanTemplate(viewShadow, '[data-loan="apply-template"]');
           return;
         }
 
-        const { loanOffer } = this.storage.storage.loanOffer;
+        const { loanOffer } = this.storage;
 
-        const eligible = isEligible(this.storage.storage, parseInt(loanOffer));
-        console.log(eligible);
+        const eligible = this.isEligible(parseInt(loanOffer));
+
+        if (!eligible) return;
+
+        this.storage.updateLoan(loanOffer);
+        this.changeLoanTemplate(viewShadow, '[data-loan="apply-template"]');
       }
     );
   }
@@ -65,54 +85,71 @@ export class Bank extends MainViews {
     e.button !== 0 ? null : modal.showModal();
   }
 
-  changeTemplate(customEl, selector) {
-    const template = qs(this.mainView.shadowRoot, selector);
+  changeLoanTemplate(viewShadow, templateSelector) {
+    const template = qs(this.mainView.shadowRoot, templateSelector);
+    const sheet = newStyleSheetLink("./css/loan-view/loan-view.css");
 
-    customEl.shadowRoot.replaceChildren(template.content.cloneNode(true));
+    viewShadow.shadowRoot.replaceChildren(
+      sheet,
+      template.content.cloneNode(true)
+    );
   }
 
-  handleLoanApplication(e, customEl) {
+  handleLoanApplication(e, viewShadow) {
     if (e.submitter.name === "cancel") return;
 
-    this.changeTemplate(customEl, '[data-loan="status-template"]');
+    this.changeLoanTemplate(viewShadow, '[data-loan="status-template"]');
 
-    this.handleLoanApplicationForm(customEl, e);
+    this.handleLoanApplicationForm(viewShadow, e);
   }
 
-  handleLoanApplicationForm(customEl, e) {
+  isEligible(loanRequestAmount) {
+    const hasLoan = this.storage.loan > 0;
+    if (hasLoan) return false;
+
+    const insufficientBalance = this.balance * 2 < loanRequestAmount;
+    if (insufficientBalance) return false;
+
+    return true;
+  }
+
+  handleLoanApplicationForm(viewShadow, e) {
     const dataStore = this.storage;
-    const { requestAmount } = e.target;
-    const eligible = isEligible(
-      dataStore.allData,
-      parseInt(requestAmount.value)
-    );
+    const {
+      requestAmount: { value: requestAmountValue },
+    } = e.target;
+
+    const requestAmount = parseInt(requestAmountValue);
+
+    const eligible = this.isEligible(parseInt(requestAmount));
 
     const [form, termsSlot] = multiQs(
-      customEl.shadowRoot,
+      viewShadow.shadowRoot,
       '[data-loan="confirmation"]',
       '[data-loan="terms-slot"]'
     );
 
-    const table = qs(form, "table");
+    const confirmationTable = qs(form, '[data-loan="confirmation-status"]');
+
     const {
       caption,
       tHead,
       rows: { statusAmount },
-    } = table;
+    } = confirmationTable;
 
     if (!eligible) {
-      caption.insertAdjacentHTML("beforebegin", "Ineligible");
-      tHead.insertAdjacentHTML(
-        "beforebegin",
-        "You are not eligible for a loan"
-      );
-      statusAmount.insertAdjacentHTML("beforebegin", "");
+      replaceHTML(caption, "Ineligible");
+      replaceHTML(tHead, "You are not eligible for a loan");
+      replaceHTML(statusAmount, "");
       termsSlot.removeAttribute("name", "terms-slot");
-    } else {
-      caption.insertAdjacentHTML("beforebegin", "Eligible");
-      tHead.insertAdjacentHTML("beforebegin", "tHeadTextt");
-      statusAmount.insertAdjacentHTML("beforebegin", requestAmount.value);
-      termsSlot.setAttribute("name", "terms-slot");
+      return;
     }
+
+    replaceHTML(caption, "Eligible");
+    replaceHTML(tHead, "tHeadTexttttt");
+    replaceHTML(statusAmount, requestAmount);
+    termsSlot.setAttribute("name", "terms-slot");
+
+    this.storage.updateLoanOffer(requestAmount);
   }
 }

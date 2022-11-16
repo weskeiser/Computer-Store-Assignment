@@ -1,4 +1,3 @@
-import { MainViews } from "../../MainViews/MainViews.js";
 import {
   insertHTML,
   multiQs,
@@ -6,15 +5,17 @@ import {
   replaceHTML,
   stringCutter,
 } from "../../utils.js";
+import { MainViews } from "../../MainViews/MainViews.js";
+import { LaptopsStorage } from "../../store/LaptopsStorage/LaptopsStorage.js";
 import { toggleSelected } from "./helpers.js";
 
+const laptopsStorage = new LaptopsStorage("LaptopsStorage");
+
 export class Laptops extends MainViews {
-  constructor(storage) {
-    super(storage);
+  constructor() {
+    super(laptopsStorage);
 
     this.baseURL = "https://noroff-komputer-store-api.herokuapp.com/";
-
-    this.storage.addEventListener(this.storage.identifier, () => this.render());
 
     this.fetchedLaptops = fetch(this.baseURL + "computers").then((res) =>
       res.json()
@@ -29,6 +30,17 @@ export class Laptops extends MainViews {
   init() {
     this.fetchedLaptops.then((laptops) => this.handleFetch(laptops));
 
+    // const [selectForm, buyForm] = multiQs(
+    //   this.mainView.shadowRoot,
+    //   "#select-form",
+    //   "#buy-form"
+    // );
+
+    // selectForm.addEventListener("change", (e) => this.onSelect(e));
+    // buyForm.addEventListener("submit", (e) => this.buyLaptop(e));
+  }
+
+  bindEvents() {
     const [selectForm, buyForm] = multiQs(
       this.mainView.shadowRoot,
       "#select-form",
@@ -133,6 +145,7 @@ export class Laptops extends MainViews {
 
   onSelect(e) {
     e.preventDefault();
+    console.log(88);
 
     const idFromInput = parseInt(e.target.dataset.laptopId);
     const idFromOption = parseInt(e.target.value);
@@ -152,7 +165,7 @@ export class Laptops extends MainViews {
     e.preventDefault();
 
     const { id, price, stock } = this.getSelectedLaptop();
-    const { balance } = this.storage.storage;
+    const { balance } = this.storage;
 
     const quantityPurchased = this.storage.getStockFromPurchased(id);
 

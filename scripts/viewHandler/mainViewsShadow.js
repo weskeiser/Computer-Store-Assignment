@@ -1,4 +1,4 @@
-import { qs, qsA } from "../utils.js";
+import { newStyleSheetLink, qs, qsA } from "../utils.js";
 
 const initialViewName = "bank";
 
@@ -8,34 +8,24 @@ const $ = {
   allViews: qsA(document, "[data-template]"),
 };
 
-export const navController = (...viewClasses) => {
+export const mainViewsShadow = (...viewClasses) => {
   customElements.define(
     "main-view",
     class extends HTMLElement {
       constructor() {
         super();
-        this.mainSheet = this.newStyleSheetLink(
-          "./css/main-view/main-view.css"
-        );
+        this.mainSheet = newStyleSheetLink("./css/main-view/main-view.css");
 
         const shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.prepend(this.mainSheet);
         shadowRoot.appendChild($.initialView.cloneNode(true));
 
-        this.render(initialViewName, viewClasses);
+        this.triggerRender(initialViewName, viewClasses);
 
-        $.nav.addEventListener("pointerup", ({ target: { name } }) => {
-          this.replaceView(name);
-          this.render(name, viewClasses);
+        $.nav.addEventListener("pointerup", ({ target: { dataset } }) => {
+          this.replaceView(dataset.navButton);
+          this.triggerRender(dataset.navButton, viewClasses);
         });
-      }
-
-      newStyleSheetLink(url) {
-        const mainSheet = document.createElement("link");
-        mainSheet.setAttribute("rel", "stylesheet");
-        mainSheet.setAttribute("href", url);
-
-        return mainSheet;
       }
 
       replaceView(selectedViewName) {
@@ -47,7 +37,7 @@ export const navController = (...viewClasses) => {
         });
       }
 
-      render(selectedViewName, viewClasses) {
+      triggerRender(selectedViewName, viewClasses) {
         const viewClassObj = viewClasses.find((viewClassObj) => {
           return viewClassObj[selectedViewName];
         });
@@ -56,10 +46,14 @@ export const navController = (...viewClasses) => {
 
         viewClass.storage._fetchStorage();
 
-        if (viewClass.previouslyRendered) {
+        const { previouslyRendered } = viewClass;
+
+        if (!previouslyRendered) {
+          viewClass.setFirstRenderDone();
           viewClass.init ? viewClass.init() : viewClass.render();
         } else {
-          viewClass.initialRender();
+          viewClass.bindEvents();
+          viewClass.render();
         }
       }
     }

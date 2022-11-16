@@ -1,0 +1,89 @@
+@import url("../global/global.css");
+:host(loan-view) > {
+  background-color: darkolivegreen;
+}
+
+:host(loan-view) > .loan_confirmation {
+  height: 100%;
+}
+:host(loan-view) > .loan_confirmation form {
+  background-color: #fff;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto auto 5em;
+}
+:host(loan-view) > .loan_confirmation form table {
+  background-color: bisque;
+  display: grid;
+  grid-template-rows: 3em auto auto;
+  justify-content: center;
+  text-align: center;
+}
+:host(loan-view) > .loan_confirmation form table caption {
+  font-size: 2em;
+  text-transform: uppercase;
+  padding: 0.5em;
+}
+:host(loan-view) > .loan_confirmation form table thead {
+  font-size: 1.2em;
+}
+:host(loan-view) > .loan_confirmation form table tbody {
+  font-size: 2em;
+}
+:host(loan-view) > .loan_confirmation form ::slotted(.terms) {
+  text-align: center;
+  justify-self: center;
+  justify-content: center;
+}
+:host(loan-view) > .loan_confirmation .buttons {
+  background-color: bisque;
+  display: flex;
+  padding: 0.5em;
+  gap: 1em;
+}
+:host(loan-view) > .loan_confirmation .buttons button {
+  width: 100%;
+  height: 100%;
+}
+
+:host(loan-view) > .bank_loan {
+  height: 100%;
+  display: flex;
+}
+:host(loan-view) > .bank_loan > button {
+  width: 80%;
+  height: 60%;
+  margin: auto;
+  font-size: 2em;
+}
+:host(loan-view) > .bank_loan :modal {
+  height: 60%;
+  width: 80%;
+}
+:host(loan-view) > .bank_loan :modal form {
+  display: grid;
+  grid-template-rows: 3em 1fr 6em;
+  height: 100%;
+}
+:host(loan-view) > .bank_loan :modal form h2 {
+  font-size: 2em;
+}
+:host(loan-view) > .bank_loan :modal form label,
+:host(loan-view) > .bank_loan :modal form input {
+  font-size: 1.4em;
+}
+:host(loan-view) > .bank_loan :modal form .loan_apply-confirmation {
+  display: flex;
+}
+:host(loan-view) > .bank_loan :modal form .loan_apply-confirmation button {
+  width: 45%;
+  height: 100%;
+  margin: auto;
+  color: #fff;
+}
+:host(loan-view) > .bank_loan :modal form .loan_apply-confirmation-accept {
+  background-color: green;
+}
+:host(loan-view) > .bank_loan :modal form .loan_apply-confirmation-cancel {
+  background-color: rgb(157, 41, 41);
+}/*# sourceMappingURL=loan-view.css.map */

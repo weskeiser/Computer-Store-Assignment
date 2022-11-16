@@ -5,10 +5,6 @@ export class BankStorage extends MainStorage {
     super(identifier);
   }
 
-  get balance() {
-    return parseInt(this.storage.balance);
-  }
-
   get loan() {
     return parseInt(this.storage.loan);
   }
@@ -19,6 +15,11 @@ export class BankStorage extends MainStorage {
 
   updateLoanOffer(offer) {
     this.storage.loanOffer = offer;
+    this._store();
+  }
+
+  updateLoan(amount) {
+    this.storage.loan += amount;
     this._store();
   }
 }

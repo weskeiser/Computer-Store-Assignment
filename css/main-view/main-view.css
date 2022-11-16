@@ -1,7 +1,7 @@
 @import url("../global/global.css");
 :host(main-view) > section {
   background-color: #fff;
-  height: 100%;
+  height: 80vh;
 }
 :host(main-view) > section h1 {
   background-color: green;
@@ -11,9 +11,25 @@
   padding-top: 0.75em;
 }
 
+:host(main-view) > .bank {
+  display: grid;
+  grid-template-rows: 8em 1fr 1fr;
+}
+:host(main-view) > .bank .overview {
+  background-color: aquamarine;
+}
+:host(main-view) > .bank .overview thead {
+  font-size: 2em;
+}
+:host(main-view) > .bank .overview tbody {
+  font-size: 4em;
+  text-align: center;
+}
+
 :host(main-view) > .laptops {
   display: grid;
   grid-template-rows: 8em 1fr 1fr;
+  height: 100%;
 }
 :host(main-view) > .laptops > .select-form {
   display: grid;
@@ -143,55 +159,4 @@
 :host(main-view) > .work > table tbody {
   font-size: 4em;
   text-align: center;
-}
-
-:host(loan-view) > * {
-  background-color: darkolivegreen;
-}
-
-:host(loan-view) > .bank_loan {
-  height: 100%;
-  display: flex;
-}
-:host(loan-view) > .bank_loan > button {
-  width: 80%;
-  height: 60%;
-  margin: auto;
-  font-size: 2em;
-}
-:host(loan-view) > .bank_loan :modal {
-  height: 60%;
-  width: 80%;
-}
-:host(loan-view) > .bank_loan :modal form {
-  display: grid;
-  grid-template-rows: 3em 1fr 6em;
-  height: 100%;
-}
-:host(loan-view) > .bank_loan :modal form h2 {
-  font-size: 2em;
-}
-:host(loan-view) > .bank_loan :modal form label,
-:host(loan-view) > .bank_loan :modal form input {
-  font-size: 1.4em;
-}
-:host(loan-view) > .bank_loan :modal form .loan_apply-confirmation {
-  display: flex;
-}
-:host(loan-view) > .bank_loan :modal form .loan_apply-confirmation button {
-  width: 45%;
-  height: 100%;
-  margin: auto;
-  color: #fff;
-}
-:host(loan-view) > .bank_loan :modal form .loan_apply-confirmation-accept {
-  background-color: green;
-}
-:host(loan-view) > .bank_loan :modal form .loan_apply-confirmation-cancel {
-  background-color: rgb(157, 41, 41);
-}
-
-:host(main-view) > .bank {
-  display: grid;
-  grid-template-rows: 8em 1fr 1fr;
 }/*# sourceMappingURL=main-view.css.map */
