@@ -62,7 +62,6 @@ export class WorkStorage extends MainStorage {
       this.storage.balance -= afterRepay;
     } else {
       this.storage.loan = afterRepay;
-      this.storage.balance += earnings;
     }
 
     this._store();
